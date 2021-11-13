@@ -3,7 +3,7 @@ The Michelin Star Dream
 Ziyu Chen zc2333, Tina Zhao nz2333, Huijun Xiao hx2306, Xinyan Zhou
 xz2981
 
-#### The motivation for this project:
+### The motivation for this project:
 
 Michelin stars are what every chef is looking for! Even the most
 renowned chefs will be worried about losing stars, and even cry after
@@ -20,13 +20,13 @@ rankings like the world’s 50 best restaurants?
 + Is a higher Michelin ranking associated with higher rating in other
 social media (Yelp, Open Table)?
 
-#### The anticipated data sources:
+### The anticipated data sources:
 
 We plan to use the data set from kaggle
 (<https://www.kaggle.com/jackywang529/michelin-restaurants>) and
 integrate data from Michelin’s official website.
 
-#### The planned analyses / visualizations / coding challenges:
+### The planned analyses / visualizations / coding challenges:
 
 We plan to run descriptive analyses first and produce a baseline
 characteristics table and do some geographic comparison for the
@@ -41,7 +41,7 @@ regular restaurant ratings. The coding challenges could be to extract
 useful data from other websites, recode variables in appropriate ways
 and merge the datasets efficiently.
 
-#### Intended final products:
+### Intended final products:
 
 Relevant data will be visualized in the form of interactive graphs on a
 dashboard. In the end, we want a series of dashboards that provide
@@ -49,7 +49,7 @@ insights on the aforementioned topics and display our findings clearly.
 Geo heat map will be provided to display data points on a real US map
 and signify areas of low and high density if necessary.
 
-#### The planned timeline :
+### The planned timeline :
 
 | Date     | Description                                                     |
 |----------|-----------------------------------------------------------------|
@@ -58,5 +58,5 @@ and signify areas of low and high density if necessary.
 | 11/16-19 | *Project Review Meeting*                                        |
 | 11/20    | *Add Supplementary Datasets/ Research Questions; Finalize Data* |
 | 11/22-29 | *Start Analysis / Website Construction*                         |
-| 12/4     | *Start Written Report ; Finish Webpage and Screencast*          |
+| 12/4     | *Start Written Report; Finish Webpage and Screencast*           |
 | 12/11    | *Report, Webpage and Screencast Due Date*                       |
