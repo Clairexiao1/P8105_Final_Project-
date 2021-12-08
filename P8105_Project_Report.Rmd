@@ -225,7 +225,7 @@ star_color <-
   colorFactor("plasma",michelin_map %>% pull(star))
 
 michelin_map %>%
-  drop_na(longitude,latitude) %>%
+  drop_na(longitude,latitude,city) %>%
   mutate(
     pop_info = str_c("Name: ", name,
                      "<br>City: ", city,
