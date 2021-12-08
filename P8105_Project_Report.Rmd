@@ -186,7 +186,7 @@ michelin_df <-
        
 #### Mapping 
      
-<br>For mapping data, [Starred Restaurants of Michelin Guide 2020](https://data.public.lu/en/datasets/michelin-restaurants-in-2020/) was cleaned in a similar way and imported in the format of csv as well. Only `name`, `city`,`stars`,`latitude` and `longtitude` were selected from original dataset. To combine 2020 and 2018-2019 Michelin restaurants datasets, `stars` was renamed to `star` and `year` = 2000 was added to 2020 Michelin restaurants dataset for consistency. The geographic distribution of Michelin restaurants was planned to be classified based on Michelin stars. Therefore, `star` was set to the factor variable and defined the order of values using `fct_relevel`. Finally, since the main parts of generating map are latitude and longitude data, any restaurants with `latitude` and `longitude` = NA were dropped. No additional world map data files were needed, and only `Leaflet`, an open-source JavaScript library, was utilized for creating interactive web maps. 
+<br>For mapping data, [Starred Restaurants of Michelin Guide 2020](https://data.public.lu/en/datasets/michelin-restaurants-in-2020/) was cleaned in a similar way and imported in the format of csv as well. Only `name`, `city`,`stars`,`latitude` and `longtitude` were selected from original dataset. To combine 2020 and 2018-2019 Michelin restaurants datasets, `stars` was renamed to `star`, `year` = 2000 and `continent` = Europe was added to 2020 Michelin restaurants dataset for consistency. The geographic distribution of Michelin restaurants was planned to be classified based on Michelin stars. Therefore, `star` was set to the factor variable and defined the order of values using `fct_relevel`. Finally, since the main parts of generating map are latitude and longitude data, any restaurants with `latitude` and `longitude` = NA were dropped. No additional world map data files were needed, and only `Leaflet`, an open-source JavaScript library, was utilized for creating interactive web maps. 
 
 ```{r,message=FALSE}
 michelin_2020 <-
@@ -199,11 +199,14 @@ michelin_2020 <-
     stars == "1" ~ "one")) %>%
   rename(star = stars) %>%
   mutate(year = 2020) %>%
-  relocate(name,year,city,latitude,longitude)
+  mutate(continent = "Europe") %>%
+  relocate(name,year,city,continent,latitude,longitude)
+
+#write.csv(michelin_2020,"./data/michelin_2020.csv", row.names = FALSE)
 
 michelin_map <-
   michelin_df %>%
-  select(name, year, city, latitude, longitude,star) %>%
+  select(name, year, city, continent, latitude, longitude,star) %>%
   rbind(michelin_2020) %>%
   mutate(
     star = fct_relevel(star,"three","two","one")) 
