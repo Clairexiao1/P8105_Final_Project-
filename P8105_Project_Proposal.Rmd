@@ -1,6 +1,6 @@
 ---
 title: "The Michelin Star Dream"
-author: "Ziyu Chen zc2333, Tina Zhao nz2333, Huijun Xiao hx2306, Xinyan Zhou xz2981"
+author: "Ziyu Chen zc2555, Tina Zhao nz2333, Huijun Xiao hx2306, Xinyan Zhou xz2981"
 output: github_document
 ---
 ### The motivation for this project:   

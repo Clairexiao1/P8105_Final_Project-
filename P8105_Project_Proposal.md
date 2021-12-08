@@ -1,6 +1,6 @@
 The Michelin Star Dream
 ================
-Ziyu Chen zc2333, Tina Zhao nz2333, Huijun Xiao hx2306, Xinyan Zhou
+Ziyu Chen zc2555, Tina Zhao nz2333, Huijun Xiao hx2306, Xinyan Zhou
 xz2981
 
 ### The motivation for this project:
