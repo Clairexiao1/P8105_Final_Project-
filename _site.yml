@@ -4,6 +4,8 @@ output_dir: "."
 navbar:
   title: "Overview"
   right:
+    - text: 'Home'
+      href: index.html
     - text: 'Data Exploration'
       href: data_exploration.html
     - text: 'Data Analysis'
