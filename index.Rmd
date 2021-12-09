@@ -34,13 +34,14 @@ Michelin stars are what every chef is looking for! Even the most renowned chefs 
 
 A baseline characteristitable and do some geographic comparison for the restaurants. - Xinyan  (EDA)
 
-2. Cuisine Type and their Prices
-
-We will also analyze the relationship between the cuisine types and prices, -Grace
-
-3. Cuisine Types and Michelin Stars   
+2. Cuisine Types and Michelin Stars   
    
 Cuisine types and star ratings of restaurants to see if there is an association between the variables. The analysis results will be delivered using graphs. -Tina
+
+3. Cuisine Type and their Prices
+
+Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded on, two three stars. But what about the prices? Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
+
 
 4. Interactive Heat Map 
 

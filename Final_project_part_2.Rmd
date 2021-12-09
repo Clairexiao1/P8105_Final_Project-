@@ -16,6 +16,8 @@ final = read_csv("./data/michelin_data.csv")
 
 ```
 
+Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded on, two three stars. But what about the prices? Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
+
 ### Cusine Type Overview
 
 
