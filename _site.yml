@@ -9,7 +9,7 @@ navbar:
     - text: 'Data Analysis'
       menu:
         - text: 'Cuisine Type and Michelin Stars'
-          href: https://nz2333.github.io/cuisinetypeandstar.github.io/
+          href: Final_project_part_3.html
         - text: 'Cuisine Type and Restaurant Price'
           href: https://ziyu0303.github.io/ds1_final.github.io/
     - text: "Interactive Map"
