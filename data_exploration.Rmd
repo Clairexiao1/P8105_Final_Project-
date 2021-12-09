@@ -1,0 +1,160 @@
+---
+title: "Data Exploration"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(modelr)
+library(rvest)
+library(httr)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+
+```{r message=FALSE, warning=FALSE}
+michelin_df = 
+  read_csv("data/michelin_data.csv") %>% 
+  janitor::clean_names() %>%
+  unique() %>%
+  filter(year == 2019)
+```
+
+# Where Can I Find a Michelin Restaurant?
+
+## Michelin Restaurants by Country
+
+```{r}
+michelin_df %>%
+  count(country, sort = TRUE) %>%
+  drop_na() %>%
+  mutate(Country = country, Count = n) %>%
+  select(Country, Count) %>%
+  knitr::kable()
+```
+
+This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.  
+
+```{r}
+michelin_df %>%
+  count(country, sort = TRUE) %>%
+  drop_na() %>%
+  mutate(count = n) %>%
+  mutate(
+    country = factor(country),
+    country = fct_reorder(country, count)
+  ) %>% 
+ plot_ly(
+      y = ~count, x = ~country, color = ~country,
+      type = "bar", colors = "viridis") %>% 
+  layout(
+    xaxis = list(title = "Country"),
+    yaxis = list(title = "Number of Michelin Restaurants")
+)
+```
+
+This graph clearly shows that more half of the Michelin restaurants are in USA, United Kingdom, and China. 
+
+## Michelin Restaurants by Continent
+
+```{r}
+michelin_df %>%
+  count(continent, sort = TRUE) %>%
+  drop_na() %>%
+  mutate(Continent = continent, Count = n) %>%
+  select(Continent, Count) %>%
+  knitr::kable()
+```
+
+This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in Europe, followed by North America. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
+
+```{r}
+michelin_df %>%
+  count(continent, sort = TRUE) %>%
+  drop_na() %>%
+  mutate(count = n) %>%
+  mutate(
+    continent = factor(continent),
+    continent = fct_reorder(continent, count)
+  ) %>% 
+ plot_ly(
+      y = ~count, x = ~continent, color = ~continent,
+      type = "bar", colors = "viridis") %>% 
+  layout(
+    xaxis = list(title = "Continent"),
+    yaxis = list(title = "Number of Michelin Restaurants")
+)
+```
+
+This graph clearly shows that the distribution of Michelin restaurants is disproportionate among different continents. 
+
+# How Much Does a Michelin Meal Cost?
+
+```{r}
+michelin_df %>%
+  count(price) %>%
+  drop_na() %>%
+  mutate(Price = price, Count = n) %>%
+  select(Price, Count) %>%
+  knitr::kable()
+
+michelin_df %>%
+  count(price) %>%
+  drop_na() %>%
+  mutate(count = n,
+         price = factor(price)) %>% 
+ plot_ly(
+      y = ~count, x = ~price, color = ~price,
+      type = "bar", colors = "viridis") %>% 
+  layout(
+    xaxis = list(title = "Price"),
+    yaxis = list(title = "Number of Michelin Restaurants")
+)
+```
+
+As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are expensive. Only 15 restaurants ranks 1st and 64 restaurants ranks 2nd in terms of price
+rankings.
+
+If we want to enjoy a Michelin meal with limited budget, where should we go?
+```{r}
+michelin_df %>%
+  filter(price == 1) %>%
+  select(-latitude,-longitude) %>%
+  knitr::kable()
+```
+Here is the list! You should definitely go to Hong kong, China - there are 9 Michelin restaurants with affordable price in Hong Kong!
+
+If our budget is a little bit higher, where should we go?
+```{r}
+michelin_df %>%
+  filter(price < 3) %>%
+  select(-latitude,-longitude) %>%
+  count(city, sort = TRUE) %>%
+  mutate(City = city, Count = n) %>%
+  select(City, Count) %>%
+  knitr::kable()
+```
+You should also go to Hong Kong! We also notice that there are 11 restaurants with 
+affordable price in Macau. Since Hong Kong and Macau are very close to each other, 
+you can definitely plan to enjoy delicious food from these two cities during the same
+trip.
+

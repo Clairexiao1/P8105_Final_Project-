@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Exploration</title>
+
+<script src="site_libs/header-attrs-2.11.3/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="data_exploration.html">Data Exploration</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Final_project_part_3.html">Cuisine Type and Michelin Stars</a>
+    </li>
+    <li>
+      <a href="Final_project_part_2.html">Cuisine Type and Restaurant Price</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://clairexiao1002.shinyapps.io/P8105_final_mapping/">Interactive Map</a>
+</li>
+<li>
+  <a href="P8105_Project_Report.html">Project Report</a>
+</li>
+<li>
+  <a href="mailto:&lt;zc2555@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Clairexiao1/P8105_Final_Project-">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Data Exploration</h1>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(modelr)
+library(rvest)
+library(httr)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = &quot;90%&quot;
+)
+
+theme_set(theme_minimal() + theme(legend.position = &quot;bottom&quot;))
+
+options(
+  ggplot2.continuous.colour = &quot;viridis&quot;,
+  ggplot2.continuous.fill = &quot;viridis&quot;
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d</code></pre>
+<pre class="r"><code>michelin_df = 
+  read_csv(&quot;data/michelin_data.csv&quot;) %&gt;% 
+  janitor::clean_names() %&gt;%
+  unique() %&gt;%
+  filter(year == 2019)</code></pre>
+<div id="where-can-i-find-a-michelin-restaurant" class="section level1">
+<h1>Where Can I Find a Michelin Restaurant?</h1>
+<div id="michelin-restaurants-by-country" class="section level2">
+<h2>Michelin Restaurants by Country</h2>
+<pre class="r"><code>michelin_df %&gt;%
+  count(country, sort = TRUE) %&gt;%
+  drop_na() %&gt;%
+  mutate(Country = country, Count = n) %&gt;%
+  select(Country, Count) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">USA</td>
+<td align="right">202</td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="right">162</td>
+</tr>
+<tr class="odd">
+<td align="left">China</td>
+<td align="right">104</td>
+</tr>
+<tr class="even">
+<td align="left">Denmark</td>
+<td align="right">28</td>
+</tr>
+<tr class="odd">
+<td align="left">South Korea</td>
+<td align="right">26</td>
+</tr>
+<tr class="even">
+<td align="left">Thailand</td>
+<td align="right">26</td>
+</tr>
+<tr class="odd">
+<td align="left">Sweden</td>
+<td align="right">22</td>
+</tr>
+<tr class="even">
+<td align="left">Austria</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">Brazil</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">Ireland</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Norway</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Finland</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Hungary</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Croatia</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Greece</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Czech Republic</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Poland</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.</p>
+<pre class="r"><code>michelin_df %&gt;%
+  count(country, sort = TRUE) %&gt;%
+  drop_na() %&gt;%
+  mutate(count = n) %&gt;%
+  mutate(
+    country = factor(country),
+    country = fct_reorder(country, count)
+  ) %&gt;% 
+ plot_ly(
+      y = ~count, x = ~country, color = ~country,
+      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
+  layout(
+    xaxis = list(title = &quot;Country&quot;),
+    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
+)</code></pre>
+<div id="htmlwidget-85d6708c95ff7973ee0f" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-85d6708c95ff7973ee0f">{"x":{"visdat":{"28685b672432":["function () ","plotlyVisDat"]},"cur_data":"28685b672432","attrs":{"28685b672432":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","type":"category","categoryorder":"array","categoryarray":["Czech Republic","Poland","Greece","Croatia","Finland","Hungary","Norway","Ireland","Brazil","Austria","Sweden","South Korea","Thailand","Denmark","China","United Kingdom","USA"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[2],"x":["Czech Republic"],"type":"bar","name":"Czech Republic","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Poland"],"type":"bar","name":"Poland","marker":{"color":"rgba(72,24,106,1)","line":{"color":"rgba(72,24,106,1)"}},"textfont":{"color":"rgba(72,24,106,1)"},"error_y":{"color":"rgba(72,24,106,1)"},"error_x":{"color":"rgba(72,24,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4],"x":["Greece"],"type":"bar","name":"Greece","marker":{"color":"rgba(71,45,123,1)","line":{"color":"rgba(71,45,123,1)"}},"textfont":{"color":"rgba(71,45,123,1)"},"error_y":{"color":"rgba(71,45,123,1)"},"error_x":{"color":"rgba(71,45,123,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5],"x":["Croatia"],"type":"bar","name":"Croatia","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Finland"],"type":"bar","name":"Finland","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Hungary"],"type":"bar","name":"Hungary","marker":{"color":"rgba(51,99,141,1)","line":{"color":"rgba(51,99,141,1)"}},"textfont":{"color":"rgba(51,99,141,1)"},"error_y":{"color":"rgba(51,99,141,1)"},"error_x":{"color":"rgba(51,99,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8],"x":["Norway"],"type":"bar","name":"Norway","marker":{"color":"rgba(44,114,142,1)","line":{"color":"rgba(44,114,142,1)"}},"textfont":{"color":"rgba(44,114,142,1)"},"error_y":{"color":"rgba(44,114,142,1)"},"error_x":{"color":"rgba(44,114,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[14],"x":["Ireland"],"type":"bar","name":"Ireland","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[18],"x":["Brazil"],"type":"bar","name":"Brazil","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[19],"x":["Austria"],"type":"bar","name":"Austria","marker":{"color":"rgba(31,159,136,1)","line":{"color":"rgba(31,159,136,1)"}},"textfont":{"color":"rgba(31,159,136,1)"},"error_y":{"color":"rgba(31,159,136,1)"},"error_x":{"color":"rgba(31,159,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[22],"x":["Sweden"],"type":"bar","name":"Sweden","marker":{"color":"rgba(39,173,129,1)","line":{"color":"rgba(39,173,129,1)"}},"textfont":{"color":"rgba(39,173,129,1)"},"error_y":{"color":"rgba(39,173,129,1)"},"error_x":{"color":"rgba(39,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["South Korea"],"type":"bar","name":"South Korea","marker":{"color":"rgba(62,188,116,1)","line":{"color":"rgba(62,188,116,1)"}},"textfont":{"color":"rgba(62,188,116,1)"},"error_y":{"color":"rgba(62,188,116,1)"},"error_x":{"color":"rgba(62,188,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["Thailand"],"type":"bar","name":"Thailand","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[28],"x":["Denmark"],"type":"bar","name":"Denmark","marker":{"color":"rgba(130,211,77,1)","line":{"color":"rgba(130,211,77,1)"}},"textfont":{"color":"rgba(130,211,77,1)"},"error_y":{"color":"rgba(130,211,77,1)"},"error_x":{"color":"rgba(130,211,77,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[104],"x":["China"],"type":"bar","name":"China","marker":{"color":"rgba(170,220,50,1)","line":{"color":"rgba(170,220,50,1)"}},"textfont":{"color":"rgba(170,220,50,1)"},"error_y":{"color":"rgba(170,220,50,1)"},"error_x":{"color":"rgba(170,220,50,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[162],"x":["United Kingdom"],"type":"bar","name":"United Kingdom","marker":{"color":"rgba(213,226,26,1)","line":{"color":"rgba(213,226,26,1)"}},"textfont":{"color":"rgba(213,226,26,1)"},"error_y":{"color":"rgba(213,226,26,1)"},"error_x":{"color":"rgba(213,226,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["USA"],"type":"bar","name":"USA","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>This graph clearly shows that more half of the Michelin restaurants are in USA, United Kingdom, and China.</p>
+</div>
+<div id="michelin-restaurants-by-continent" class="section level2">
+<h2>Michelin Restaurants by Continent</h2>
+<pre class="r"><code>michelin_df %&gt;%
+  count(continent, sort = TRUE) %&gt;%
+  drop_na() %&gt;%
+  mutate(Continent = continent, Count = n) %&gt;%
+  select(Continent, Count) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Continent</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Europe</td>
+<td align="right">278</td>
+</tr>
+<tr class="even">
+<td align="left">North America</td>
+<td align="right">202</td>
+</tr>
+<tr class="odd">
+<td align="left">Asia</td>
+<td align="right">156</td>
+</tr>
+<tr class="even">
+<td align="left">South America</td>
+<td align="right">18</td>
+</tr>
+</tbody>
+</table>
+<p>This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in Europe, followed by North America. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.</p>
+<pre class="r"><code>michelin_df %&gt;%
+  count(continent, sort = TRUE) %&gt;%
+  drop_na() %&gt;%
+  mutate(count = n) %&gt;%
+  mutate(
+    continent = factor(continent),
+    continent = fct_reorder(continent, count)
+  ) %&gt;% 
+ plot_ly(
+      y = ~count, x = ~continent, color = ~continent,
+      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
+  layout(
+    xaxis = list(title = &quot;Continent&quot;),
+    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
+)</code></pre>
+<div id="htmlwidget-5530dbc0de57c7843d15" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5530dbc0de57c7843d15">{"x":{"visdat":{"286841c05d5b":["function () ","plotlyVisDat"]},"cur_data":"286841c05d5b","attrs":{"286841c05d5b":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Continent","type":"category","categoryorder":"array","categoryarray":["South America","Asia","North America","Europe"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[18],"x":["South America"],"type":"bar","name":"South America","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[156],"x":["Asia"],"type":"bar","name":"Asia","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["North America"],"type":"bar","name":"North America","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[278],"x":["Europe"],"type":"bar","name":"Europe","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>This graph clearly shows that the distribution of Michelin restaurants is disproportionate among different continents.</p>
+</div>
+</div>
+<div id="how-much-does-a-michelin-meal-cost" class="section level1">
+<h1>How Much Does a Michelin Meal Cost?</h1>
+<pre class="r"><code>michelin_df %&gt;%
+  count(price) %&gt;%
+  drop_na() %&gt;%
+  mutate(Price = price, Count = n) %&gt;%
+  select(Price, Count) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Price</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">64</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">136</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">194</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">71</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>michelin_df %&gt;%
+  count(price) %&gt;%
+  drop_na() %&gt;%
+  mutate(count = n,
+         price = factor(price)) %&gt;% 
+ plot_ly(
+      y = ~count, x = ~price, color = ~price,
+      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
+  layout(
+    xaxis = list(title = &quot;Price&quot;),
+    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
+)</code></pre>
+<div id="htmlwidget-ed092f8b1cbce8cdf449" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ed092f8b1cbce8cdf449">{"x":{"visdat":{"28686d482304":["function () ","plotlyVisDat"]},"cur_data":"28686d482304","attrs":{"28686d482304":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Price","type":"category","categoryorder":"array","categoryarray":["1","2","3","4","5"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[15],"x":["1"],"type":"bar","name":"1","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[64],"x":["2"],"type":"bar","name":"2","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[136],"x":["3"],"type":"bar","name":"3","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[194],"x":["4"],"type":"bar","name":"4","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[71],"x":["5"],"type":"bar","name":"5","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are expensive. Only 15 restaurants ranks 1st and 64 restaurants ranks 2nd in terms of price rankings.</p>
+<p>If we want to enjoy a Michelin meal with limited budget, where should we go?</p>
+<pre class="r"><code>michelin_df %&gt;%
+  filter(price == 1) %&gt;%
+  select(-latitude,-longitude) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="right">year</th>
+<th align="left">city</th>
+<th align="left">country</th>
+<th align="left">continent</th>
+<th align="left">cuisine</th>
+<th align="right">price</th>
+<th align="left">star</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lei Garden (Kwun Tong)</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Tim Ho Wan (Sham Shui Po)</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Dim Sum</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Lei Garden (Mong Kok)</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Yè Shanghai (Tsim Sha Tsui)</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Shanghainese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Ho Hung Kee</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Noodles and congee</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Kam’s Roast Goose</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese Roast Meats</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Pang’s Kitchen</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Qi (Wan Chai)</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Sichuan</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Yat Lok</td>
+<td align="right">2019</td>
+<td align="left">Hong Kong</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese Roast Meats</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">King</td>
+<td align="right">2019</td>
+<td align="left">Macau</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">The Golden Peacock</td>
+<td align="right">2019</td>
+<td align="left">Macau</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Indian</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Jin Jin</td>
+<td align="right">2019</td>
+<td align="left">Seoul</td>
+<td align="left">South Korea</td>
+<td align="left">Asia</td>
+<td align="left">Chinese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Da San Yuan</td>
+<td align="right">2019</td>
+<td align="left">Taipei</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Cantonese</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="even">
+<td align="left">Suan Thip</td>
+<td align="right">2019</td>
+<td align="left">Bangkok</td>
+<td align="left">Thailand</td>
+<td align="left">Asia</td>
+<td align="left">Thai</td>
+<td align="right">1</td>
+<td align="left">one</td>
+</tr>
+<tr class="odd">
+<td align="left">Feng Wei Ju</td>
+<td align="right">2019</td>
+<td align="left">Macau</td>
+<td align="left">China</td>
+<td align="left">Asia</td>
+<td align="left">Hunanese and Sichuan</td>
+<td align="right">1</td>
+<td align="left">two</td>
+</tr>
+</tbody>
+</table>
+<p>Here is the list! You should definitely go to Hong kong, China - there are 9 Michelin restaurants with affordable price in Hong Kong!</p>
+<p>If our budget is a little bit higher, where should we go?</p>
+<pre class="r"><code>michelin_df %&gt;%
+  filter(price &lt; 3) %&gt;%
+  select(-latitude,-longitude) %&gt;%
+  count(city, sort = TRUE) %&gt;%
+  mutate(City = city, Count = n) %&gt;%
+  select(City, Count) %&gt;%
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">City</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hong Kong</td>
+<td align="right">24</td>
+</tr>
+<tr class="even">
+<td align="left">Macau</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">Taipei</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">New York</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">København</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Bangkok</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">San Francisco</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Washington, D.C.</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Chicago</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Seoul</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Los Angeles</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Malmö</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Stockholm</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>You should also go to Hong Kong! We also notice that there are 11 restaurants with affordable price in Macau. Since Hong Kong and Macau are very close to each other, you can definitely plan to enjoy delicious food from these two cities during the same trip.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
