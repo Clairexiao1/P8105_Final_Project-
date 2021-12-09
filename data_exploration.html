@@ -391,42 +391,10 @@ div.tocify {
 </div>
 
 
-<pre class="r"><code>library(tidyverse)
-library(modelr)
-library(rvest)
-library(httr)
-library(plotly)
-
-knitr::opts_chunk$set(
-  fig.width = 6,
-  fig.asp = .6,
-  out.width = &quot;90%&quot;
-)
-
-theme_set(theme_minimal() + theme(legend.position = &quot;bottom&quot;))
-
-options(
-  ggplot2.continuous.colour = &quot;viridis&quot;,
-  ggplot2.continuous.fill = &quot;viridis&quot;
-)
-
-scale_colour_discrete = scale_colour_viridis_d
-scale_fill_discrete = scale_fill_viridis_d</code></pre>
-<pre class="r"><code>michelin_df = 
-  read_csv(&quot;data/michelin_data.csv&quot;) %&gt;% 
-  janitor::clean_names() %&gt;%
-  unique() %&gt;%
-  filter(year == 2019)</code></pre>
 <div id="where-can-i-find-a-michelin-restaurant" class="section level1">
 <h1>Where Can I Find a Michelin Restaurant?</h1>
 <div id="michelin-restaurants-by-country" class="section level2">
 <h2>Michelin Restaurants by Country</h2>
-<pre class="r"><code>michelin_df %&gt;%
-  count(country, sort = TRUE) %&gt;%
-  drop_na() %&gt;%
-  mutate(Country = country, Count = n) %&gt;%
-  select(Country, Count) %&gt;%
-  knitr::kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -506,33 +474,12 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 </tbody>
 </table>
 <p>This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.</p>
-<pre class="r"><code>michelin_df %&gt;%
-  count(country, sort = TRUE) %&gt;%
-  drop_na() %&gt;%
-  mutate(count = n) %&gt;%
-  mutate(
-    country = factor(country),
-    country = fct_reorder(country, count)
-  ) %&gt;% 
- plot_ly(
-      y = ~count, x = ~country, color = ~country,
-      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
-  layout(
-    xaxis = list(title = &quot;Country&quot;),
-    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
-)</code></pre>
-<div id="htmlwidget-fb111eb31cf768ac164d" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fb111eb31cf768ac164d">{"x":{"visdat":{"307c6da7e81":["function () ","plotlyVisDat"]},"cur_data":"307c6da7e81","attrs":{"307c6da7e81":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","type":"category","categoryorder":"array","categoryarray":["Czech Republic","Poland","Greece","Croatia","Finland","Hungary","Norway","Ireland","Brazil","Austria","Sweden","South Korea","Thailand","Denmark","China","United Kingdom","USA"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[2],"x":["Czech Republic"],"type":"bar","name":"Czech Republic","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Poland"],"type":"bar","name":"Poland","marker":{"color":"rgba(72,24,106,1)","line":{"color":"rgba(72,24,106,1)"}},"textfont":{"color":"rgba(72,24,106,1)"},"error_y":{"color":"rgba(72,24,106,1)"},"error_x":{"color":"rgba(72,24,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4],"x":["Greece"],"type":"bar","name":"Greece","marker":{"color":"rgba(71,45,123,1)","line":{"color":"rgba(71,45,123,1)"}},"textfont":{"color":"rgba(71,45,123,1)"},"error_y":{"color":"rgba(71,45,123,1)"},"error_x":{"color":"rgba(71,45,123,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5],"x":["Croatia"],"type":"bar","name":"Croatia","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Finland"],"type":"bar","name":"Finland","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Hungary"],"type":"bar","name":"Hungary","marker":{"color":"rgba(51,99,141,1)","line":{"color":"rgba(51,99,141,1)"}},"textfont":{"color":"rgba(51,99,141,1)"},"error_y":{"color":"rgba(51,99,141,1)"},"error_x":{"color":"rgba(51,99,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8],"x":["Norway"],"type":"bar","name":"Norway","marker":{"color":"rgba(44,114,142,1)","line":{"color":"rgba(44,114,142,1)"}},"textfont":{"color":"rgba(44,114,142,1)"},"error_y":{"color":"rgba(44,114,142,1)"},"error_x":{"color":"rgba(44,114,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[14],"x":["Ireland"],"type":"bar","name":"Ireland","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[18],"x":["Brazil"],"type":"bar","name":"Brazil","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[19],"x":["Austria"],"type":"bar","name":"Austria","marker":{"color":"rgba(31,159,136,1)","line":{"color":"rgba(31,159,136,1)"}},"textfont":{"color":"rgba(31,159,136,1)"},"error_y":{"color":"rgba(31,159,136,1)"},"error_x":{"color":"rgba(31,159,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[22],"x":["Sweden"],"type":"bar","name":"Sweden","marker":{"color":"rgba(39,173,129,1)","line":{"color":"rgba(39,173,129,1)"}},"textfont":{"color":"rgba(39,173,129,1)"},"error_y":{"color":"rgba(39,173,129,1)"},"error_x":{"color":"rgba(39,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["South Korea"],"type":"bar","name":"South Korea","marker":{"color":"rgba(62,188,116,1)","line":{"color":"rgba(62,188,116,1)"}},"textfont":{"color":"rgba(62,188,116,1)"},"error_y":{"color":"rgba(62,188,116,1)"},"error_x":{"color":"rgba(62,188,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["Thailand"],"type":"bar","name":"Thailand","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[28],"x":["Denmark"],"type":"bar","name":"Denmark","marker":{"color":"rgba(130,211,77,1)","line":{"color":"rgba(130,211,77,1)"}},"textfont":{"color":"rgba(130,211,77,1)"},"error_y":{"color":"rgba(130,211,77,1)"},"error_x":{"color":"rgba(130,211,77,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[104],"x":["China"],"type":"bar","name":"China","marker":{"color":"rgba(170,220,50,1)","line":{"color":"rgba(170,220,50,1)"}},"textfont":{"color":"rgba(170,220,50,1)"},"error_y":{"color":"rgba(170,220,50,1)"},"error_x":{"color":"rgba(170,220,50,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[162],"x":["United Kingdom"],"type":"bar","name":"United Kingdom","marker":{"color":"rgba(213,226,26,1)","line":{"color":"rgba(213,226,26,1)"}},"textfont":{"color":"rgba(213,226,26,1)"},"error_y":{"color":"rgba(213,226,26,1)"},"error_x":{"color":"rgba(213,226,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["USA"],"type":"bar","name":"USA","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5cdfca835548a7b70a8b" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5cdfca835548a7b70a8b">{"x":{"visdat":{"47f45ee85d05":["function () ","plotlyVisDat"]},"cur_data":"47f45ee85d05","attrs":{"47f45ee85d05":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","type":"category","categoryorder":"array","categoryarray":["Czech Republic","Poland","Greece","Croatia","Finland","Hungary","Norway","Ireland","Brazil","Austria","Sweden","South Korea","Thailand","Denmark","China","United Kingdom","USA"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[2],"x":["Czech Republic"],"type":"bar","name":"Czech Republic","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Poland"],"type":"bar","name":"Poland","marker":{"color":"rgba(72,24,106,1)","line":{"color":"rgba(72,24,106,1)"}},"textfont":{"color":"rgba(72,24,106,1)"},"error_y":{"color":"rgba(72,24,106,1)"},"error_x":{"color":"rgba(72,24,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[4],"x":["Greece"],"type":"bar","name":"Greece","marker":{"color":"rgba(71,45,123,1)","line":{"color":"rgba(71,45,123,1)"}},"textfont":{"color":"rgba(71,45,123,1)"},"error_y":{"color":"rgba(71,45,123,1)"},"error_x":{"color":"rgba(71,45,123,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[5],"x":["Croatia"],"type":"bar","name":"Croatia","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Finland"],"type":"bar","name":"Finland","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[6],"x":["Hungary"],"type":"bar","name":"Hungary","marker":{"color":"rgba(51,99,141,1)","line":{"color":"rgba(51,99,141,1)"}},"textfont":{"color":"rgba(51,99,141,1)"},"error_y":{"color":"rgba(51,99,141,1)"},"error_x":{"color":"rgba(51,99,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[8],"x":["Norway"],"type":"bar","name":"Norway","marker":{"color":"rgba(44,114,142,1)","line":{"color":"rgba(44,114,142,1)"}},"textfont":{"color":"rgba(44,114,142,1)"},"error_y":{"color":"rgba(44,114,142,1)"},"error_x":{"color":"rgba(44,114,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[14],"x":["Ireland"],"type":"bar","name":"Ireland","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[18],"x":["Brazil"],"type":"bar","name":"Brazil","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[19],"x":["Austria"],"type":"bar","name":"Austria","marker":{"color":"rgba(31,159,136,1)","line":{"color":"rgba(31,159,136,1)"}},"textfont":{"color":"rgba(31,159,136,1)"},"error_y":{"color":"rgba(31,159,136,1)"},"error_x":{"color":"rgba(31,159,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[22],"x":["Sweden"],"type":"bar","name":"Sweden","marker":{"color":"rgba(39,173,129,1)","line":{"color":"rgba(39,173,129,1)"}},"textfont":{"color":"rgba(39,173,129,1)"},"error_y":{"color":"rgba(39,173,129,1)"},"error_x":{"color":"rgba(39,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["South Korea"],"type":"bar","name":"South Korea","marker":{"color":"rgba(62,188,116,1)","line":{"color":"rgba(62,188,116,1)"}},"textfont":{"color":"rgba(62,188,116,1)"},"error_y":{"color":"rgba(62,188,116,1)"},"error_x":{"color":"rgba(62,188,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[26],"x":["Thailand"],"type":"bar","name":"Thailand","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[28],"x":["Denmark"],"type":"bar","name":"Denmark","marker":{"color":"rgba(130,211,77,1)","line":{"color":"rgba(130,211,77,1)"}},"textfont":{"color":"rgba(130,211,77,1)"},"error_y":{"color":"rgba(130,211,77,1)"},"error_x":{"color":"rgba(130,211,77,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[104],"x":["China"],"type":"bar","name":"China","marker":{"color":"rgba(170,220,50,1)","line":{"color":"rgba(170,220,50,1)"}},"textfont":{"color":"rgba(170,220,50,1)"},"error_y":{"color":"rgba(170,220,50,1)"},"error_x":{"color":"rgba(170,220,50,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[162],"x":["United Kingdom"],"type":"bar","name":"United Kingdom","marker":{"color":"rgba(213,226,26,1)","line":{"color":"rgba(213,226,26,1)"}},"textfont":{"color":"rgba(213,226,26,1)"},"error_y":{"color":"rgba(213,226,26,1)"},"error_x":{"color":"rgba(213,226,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["USA"],"type":"bar","name":"USA","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>This graph clearly shows that more half of the Michelin restaurants are in USA, United Kingdom, and China.</p>
 </div>
 <div id="michelin-restaurants-by-continent" class="section level2">
 <h2>Michelin Restaurants by Continent</h2>
-<pre class="r"><code>michelin_df %&gt;%
-  count(continent, sort = TRUE) %&gt;%
-  drop_na() %&gt;%
-  mutate(Continent = continent, Count = n) %&gt;%
-  select(Continent, Count) %&gt;%
-  knitr::kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -560,34 +507,13 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 </tbody>
 </table>
 <p>This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in Europe, followed by North America. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.</p>
-<pre class="r"><code>michelin_df %&gt;%
-  count(continent, sort = TRUE) %&gt;%
-  drop_na() %&gt;%
-  mutate(count = n) %&gt;%
-  mutate(
-    continent = factor(continent),
-    continent = fct_reorder(continent, count)
-  ) %&gt;% 
- plot_ly(
-      y = ~count, x = ~continent, color = ~continent,
-      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
-  layout(
-    xaxis = list(title = &quot;Continent&quot;),
-    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
-)</code></pre>
-<div id="htmlwidget-201bbfdd434f145ea52c" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-201bbfdd434f145ea52c">{"x":{"visdat":{"307c6fe67169":["function () ","plotlyVisDat"]},"cur_data":"307c6fe67169","attrs":{"307c6fe67169":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Continent","type":"category","categoryorder":"array","categoryarray":["South America","Asia","North America","Europe"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[18],"x":["South America"],"type":"bar","name":"South America","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[156],"x":["Asia"],"type":"bar","name":"Asia","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["North America"],"type":"bar","name":"North America","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[278],"x":["Europe"],"type":"bar","name":"Europe","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b8160106d608e564e7e3" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b8160106d608e564e7e3">{"x":{"visdat":{"47f4727a3000":["function () ","plotlyVisDat"]},"cur_data":"47f4727a3000","attrs":{"47f4727a3000":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Continent","type":"category","categoryorder":"array","categoryarray":["South America","Asia","North America","Europe"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[18],"x":["South America"],"type":"bar","name":"South America","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[156],"x":["Asia"],"type":"bar","name":"Asia","marker":{"color":"rgba(49,104,142,1)","line":{"color":"rgba(49,104,142,1)"}},"textfont":{"color":"rgba(49,104,142,1)"},"error_y":{"color":"rgba(49,104,142,1)"},"error_x":{"color":"rgba(49,104,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[202],"x":["North America"],"type":"bar","name":"North America","marker":{"color":"rgba(53,183,121,1)","line":{"color":"rgba(53,183,121,1)"}},"textfont":{"color":"rgba(53,183,121,1)"},"error_y":{"color":"rgba(53,183,121,1)"},"error_x":{"color":"rgba(53,183,121,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[278],"x":["Europe"],"type":"bar","name":"Europe","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>This graph clearly shows that the distribution of Michelin restaurants is disproportionate among different continents.</p>
 </div>
 </div>
 <div id="how-much-does-a-michelin-meal-cost" class="section level1">
 <h1>How Much Does a Michelin Meal Cost?</h1>
-<pre class="r"><code>michelin_df %&gt;%
-  count(price) %&gt;%
-  drop_na() %&gt;%
-  mutate(Price = price, Count = n) %&gt;%
-  select(Price, Count) %&gt;%
-  knitr::kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -618,26 +544,10 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>michelin_df %&gt;%
-  count(price) %&gt;%
-  drop_na() %&gt;%
-  mutate(count = n,
-         price = factor(price)) %&gt;% 
- plot_ly(
-      y = ~count, x = ~price, color = ~price,
-      type = &quot;bar&quot;, colors = &quot;viridis&quot;) %&gt;% 
-  layout(
-    xaxis = list(title = &quot;Price&quot;),
-    yaxis = list(title = &quot;Number of Michelin Restaurants&quot;)
-)</code></pre>
-<div id="htmlwidget-53a2ce9e5861bbc7a8d9" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-53a2ce9e5861bbc7a8d9">{"x":{"visdat":{"307c57216113":["function () ","plotlyVisDat"]},"cur_data":"307c57216113","attrs":{"307c57216113":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Price","type":"category","categoryorder":"array","categoryarray":["1","2","3","4","5"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[15],"x":["1"],"type":"bar","name":"1","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[64],"x":["2"],"type":"bar","name":"2","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[136],"x":["3"],"type":"bar","name":"3","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[194],"x":["4"],"type":"bar","name":"4","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[71],"x":["5"],"type":"bar","name":"5","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-6c41823915f70e552ffe" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6c41823915f70e552ffe">{"x":{"visdat":{"47f4740f4d6e":["function () ","plotlyVisDat"]},"cur_data":"47f4740f4d6e","attrs":{"47f4740f4d6e":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Price","type":"category","categoryorder":"array","categoryarray":["1","2","3","4","5"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[15],"x":["1"],"type":"bar","name":"1","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[64],"x":["2"],"type":"bar","name":"2","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[136],"x":["3"],"type":"bar","name":"3","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[194],"x":["4"],"type":"bar","name":"4","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[71],"x":["5"],"type":"bar","name":"5","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are expensive. Only 15 restaurants ranks 1st and 64 restaurants ranks 2nd in terms of price rankings.</p>
 <p>If we want to enjoy a Michelin meal with limited budget, where should we go?</p>
-<pre class="r"><code>michelin_df %&gt;%
-  filter(price == 1) %&gt;%
-  select(-latitude,-longitude) %&gt;%
-  knitr::kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -806,13 +716,6 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 </table>
 <p>Here is the list! You should definitely go to Hong kong, China - there are 9 Michelin restaurants with affordable price in Hong Kong!</p>
 <p>If our budget is a little bit higher, where should we go?</p>
-<pre class="r"><code>michelin_df %&gt;%
-  filter(price &lt; 3) %&gt;%
-  select(-latitude,-longitude) %&gt;%
-  count(city, sort = TRUE) %&gt;%
-  mutate(City = city, Count = n) %&gt;%
-  select(City, Count) %&gt;%
-  knitr::kable()</code></pre>
 <table>
 <thead>
 <tr class="header">

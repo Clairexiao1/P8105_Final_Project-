@@ -6,7 +6,7 @@ output:
     toc_float: true
 ---
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 library(tidyverse)
 library(modelr)
 library(rvest)
@@ -31,7 +31,7 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 michelin_df = 
   read_csv("data/michelin_data.csv") %>% 
   janitor::clean_names() %>%
@@ -43,7 +43,7 @@ michelin_df =
 
 ## Michelin Restaurants by Country
 
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   count(country, sort = TRUE) %>%
   drop_na() %>%
@@ -54,7 +54,7 @@ michelin_df %>%
 
 This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.  
 
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   count(country, sort = TRUE) %>%
   drop_na() %>%
@@ -76,7 +76,7 @@ This graph clearly shows that more half of the Michelin restaurants are in USA, 
 
 ## Michelin Restaurants by Continent
 
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   count(continent, sort = TRUE) %>%
   drop_na() %>%
@@ -87,7 +87,7 @@ michelin_df %>%
 
 This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in Europe, followed by North America. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
 
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   count(continent, sort = TRUE) %>%
   drop_na() %>%
@@ -109,7 +109,7 @@ This graph clearly shows that the distribution of Michelin restaurants is dispro
 
 # How Much Does a Michelin Meal Cost?
 
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   count(price) %>%
   drop_na() %>%
@@ -135,7 +135,7 @@ As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are e
 rankings.
 
 If we want to enjoy a Michelin meal with limited budget, where should we go?
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   filter(price == 1) %>%
   select(-latitude,-longitude) %>%
@@ -144,7 +144,7 @@ michelin_df %>%
 Here is the list! You should definitely go to Hong kong, China - there are 9 Michelin restaurants with affordable price in Hong Kong!
 
 If our budget is a little bit higher, where should we go?
-```{r}
+```{r echo=FALSE}
 michelin_df %>%
   filter(price < 3) %>%
   select(-latitude,-longitude) %>%
