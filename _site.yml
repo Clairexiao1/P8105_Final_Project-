@@ -15,7 +15,7 @@ navbar:
         - text: 'Cuisine Type and Restaurant Price'
           href: Final_project_part_2.html
     - text: "Interactive Map"
-      href: 
+      href:  https://clairexiao1002.shinyapps.io/P8105_final_mapping/
     - text: 'Report'
       href: P8105_Project_Report.html
     - icon: fa-envelope fa-lg
