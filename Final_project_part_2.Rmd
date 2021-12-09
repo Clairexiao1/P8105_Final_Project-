@@ -1,18 +1,18 @@
 ---
-title: "Final_project_zc2555"
+title: "Cuisine Type and Restaurant Price"
 author: "Ziyu Chen"
 date: "12/6/2021"
 output: html_document
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, message = FALSE}
 
 library(tidyverse)
 library(readxl)
 library(ggplot2)
 library(plotly)
 
-final = read_csv("./michelin_data.csv")
+final = read_csv("./data/michelin_data.csv")
 
 ```
 
