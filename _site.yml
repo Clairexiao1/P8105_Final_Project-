@@ -2,10 +2,8 @@
 name: "The Michelin Star Dream"
 output_dir: "."
 navbar:
-  title: "Overview"
+  title: "Home"
   right:
-    - text: 'Home'
-      href: index.html
     - text: 'Data Exploration'
       href: data_exploration.html
     - text: 'Data Analysis'
@@ -16,7 +14,7 @@ navbar:
           href: Final_project_part_2.html
     - text: "Interactive Map"
       href:  https://clairexiao1002.shinyapps.io/P8105_final_mapping/
-    - text: 'Report'
+    - text: 'Project Report'
       href: P8105_Project_Report.html
     - icon: fa-envelope fa-lg
       href: mailto:<zc2555@cumc.columbia.edu>
