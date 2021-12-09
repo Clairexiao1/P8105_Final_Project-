@@ -57,7 +57,7 @@ knitr::kable(country)
 
 
 
-```{r message=FALSE, warning =FALSE}
+```{r message=FALSE, warning =FALSE, echo = FALSE}
 final_clean = final %>%
    drop_na(price, continent)  %>% # still need to categorize the cuisine type
    mutate(cuisine_cat = fct_collapse(cuisine,
@@ -144,7 +144,7 @@ asia_plot = final_asia %>%
 ggplotly(asia_plot)
 
 ```
-* We can see that in Asia, the most expansive cuisine type is Japanese while cheapest cuisine type is Indian. 
+* We can see that in Asia, the most expensive cuisine type is Japanese while cheapest cuisine type is Indian. 
 
 ```{r message=FALSE, warning =FALSE}
 europe_plot = final_europe %>%
@@ -160,9 +160,9 @@ europe_plot = final_europe %>%
 
 ggplotly(europe_plot)
 ```
-In Europe, the most expansive cuisine type is Mediterranean which also aligns with our overal plot before stratifying with continents. The cheapest cuisine types in Europe are Thai and Italian, which is really unexpected. 
+In Europe, the most expensive cuisine type is Mediterranean which also aligns with our overall plot before stratifying with continents. The cheapest cuisine types in Europe are Thai and Italian, which is really unexpected. 
 
-```{r message=FALSE, warning =FALSE}
+```{r message=FALSE, warning = FALSE}
 na_plot = final_na %>%
     mutate(cuisine_cat = factor(cuisine_cat)) %>%
     group_by(cuisine_cat)%>%
@@ -176,7 +176,7 @@ na_plot = final_na %>%
 
 ggplotly(na_plot)
 ```
-* In North America, the most expansive cuisine types are Scandiavian and other_european
+* In North America, the most expensive cuisine types are Scandiavian and other_european, the cheapest type is Chinese. 
 
 
 
@@ -195,3 +195,19 @@ sa_plot = final_sa %>%
 
 ggplotly(sa_plot)
 ```
+
+
+* In South America, most of the cuisine types are expensive, while only Japanese has a relatively lower prices, which is 4.67. 
+
+
+
+Plot for map???
+```{r}
+map_plot = final_clean %>% 
+  ggplot(aes(x = cuisine_cat, y = star)) + 
+  geom_point(color = "pink") +
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))
+
+ggplotly(map_plot)
+```
+
