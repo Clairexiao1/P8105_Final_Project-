@@ -59,7 +59,6 @@ knitr::kable(country)
 
 ```{r message=FALSE, warning =FALSE, echo = FALSE}
 final_clean = final %>%
-   drop_na(price, continent)  %>% # still need to categorize the cuisine type
    mutate(cuisine_cat = fct_collapse(cuisine,
                    American = c("American", "Californian"), 
                    Australian = c("Australian"),
@@ -80,7 +79,8 @@ final_clean = final %>%
                    Indian = c("Indian"), 
                    Spanish = c("Spanish"), 
                    Mexican = c("Mexican"))
-  )
+  ) %>%
+          drop_na(price, continent)  
 ```
 
 
