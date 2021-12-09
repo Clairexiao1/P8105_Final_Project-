@@ -11,12 +11,12 @@ navbar:
         - text: 'Cuisine Type and Michelin Stars'
           href: Final_project_part_3.html
         - text: 'Cuisine Type and Restaurant Price'
-          href: https://ziyu0303.github.io/ds1_final.github.io/
+          href: Final_project_part_2.html
     - text: "Interactive Map"
-      href: map.html
+      href: P8105_final_mapping.html
     - text: 'Report'
-      href: report.html
-    - icon: P8105_Project_Report.html
+      href: P8105_Project_Report.html
+    - icon: fa-envelope fa-lg
       href: mailto:<zc2555@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: https://github.com/Clairexiao1/P8105_Final_Project-
