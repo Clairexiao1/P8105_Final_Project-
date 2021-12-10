@@ -1,5 +1,5 @@
 ---
-title: "Data Exploration"
+title: "**Data Exploration**"
 output: 
   html_document:
     toc: true
@@ -38,10 +38,13 @@ michelin_df =
   unique() %>%
   filter(year == 2019)
 ```
+&nbsp;
 
-# Where Can I Find a Michelin Restaurant?
+## **Where Can I Find a Michelin Restaurant?**
 
-## Michelin Restaurants by Country
+&nbsp;
+
+### Michelin Restaurants by Country
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -53,6 +56,8 @@ michelin_df %>%
 ```
 
 This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.  
+
+&nbsp;
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -74,7 +79,9 @@ michelin_df %>%
 
 This graph clearly shows that more half of the Michelin restaurants are in USA, United Kingdom, and China. 
 
-## Michelin Restaurants by Continent
+&nbsp;
+
+## **Michelin Restaurants by Continent**
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -85,7 +92,9 @@ michelin_df %>%
   knitr::kable()
 ```
 
-This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in Europe, followed by North America. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
+This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in **Europe, followed by North America**. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
+
+&nbsp;
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -107,7 +116,9 @@ michelin_df %>%
 
 This graph clearly shows that the distribution of Michelin restaurants is disproportionate among different continents. 
 
-# How Much Does a Michelin Meal Cost?
+&nbsp;
+
+## **How Much Does a Michelin Meal Cost?**
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -134,7 +145,12 @@ michelin_df %>%
 As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are expensive. Only 15 restaurants ranks 1st and 64 restaurants ranks 2nd in terms of price
 rankings.
 
+&nbsp;
+
 If we want to enjoy a Michelin meal with limited budget, where should we go?
+
+&nbsp;
+
 ```{r echo=FALSE}
 michelin_df %>%
   filter(price == 1) %>%
@@ -153,8 +169,8 @@ michelin_df %>%
   select(City, Count) %>%
   knitr::kable()
 ```
-You should also go to Hong Kong! We also notice that there are 11 restaurants with 
-affordable price in Macau. Since Hong Kong and Macau are very close to each other, 
+You should also go to **Hong Kong**! We also notice that there are **11 restaurants with 
+affordable price in Macau**. Since Hong Kong and Macau are very close to each other, 
 you can definitely plan to enjoy delicious food from these two cities during the same
 trip.
 
