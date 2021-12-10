@@ -1,10 +1,8 @@
 ---
-title: "**Cuisine type and star ratings**"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cosmo
+title: "**Cuisine Type and Michelin Stars**"
+author: "nz2333"
+date: "12/9/2021"
+output: html_document
 ---
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
@@ -30,7 +28,7 @@ data %>%
     cuisine = fct_reorder(cuisine, avg_star)
   ) %>%
   ggplot(aes(x = cuisine, y = avg_star))+
-  geom_point()+
+  geom_point(color = "red")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.3, hjust = 0.3))+
   labs(
     title = "Average Rating Stars for each Baseline Cuisine type",
@@ -128,7 +126,7 @@ data %>%
     cuisine_new = fct_reorder(cuisine_new, avg_star)
   ) %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
-  geom_point()+
+  geom_point(color = "blue")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type",
@@ -164,7 +162,7 @@ Asia = data %>%
     cuisine_new = fct_reorder(cuisine_new, avg_star)
   ) %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
-  geom_point()+
+  geom_point(color = "darkgreen")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in Asia",
@@ -196,7 +194,7 @@ Europe = data %>%
     cuisine_new = fct_reorder(cuisine_new, avg_star)
   ) %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
-  geom_point()+
+  geom_point(color = "darkorange")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in Europe",
@@ -229,7 +227,7 @@ North_America = data %>%
     cuisine_new = fct_reorder(cuisine_new, avg_star)
   ) %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
-  geom_point()+
+  geom_point(color = "darkblue")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in North America",
@@ -261,7 +259,7 @@ South_America = data %>%
     cuisine_new = fct_reorder(cuisine_new, avg_star)
   ) %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
-  geom_point()+
+  geom_point(color = "purple")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in South America",

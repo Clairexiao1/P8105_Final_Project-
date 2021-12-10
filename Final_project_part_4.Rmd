@@ -1,0 +1,116 @@
+---
+title: "**Michelin Stars and Price"
+author: "nz2333"
+date: "12/9/2021"
+output: html_document
+---
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+library(tidyverse)
+data = read.csv("./data/michelin_data.csv")
+
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+data = data %>%
+  mutate(
+    cuisine_new = fct_collapse(cuisine,
+                   American = c("American", "Californian"), 
+                   Australian = c("Australian"),
+                   Other_Asian = c("Asian", "Asian contemporary", "Asian influences", "Peranakan"),
+                   Chinese = c("Cantonese", "Hang Zhou", "Sichuan", "Sichuan-Huai Yang", "Cantonese Roast Meats", "Fujian", "Hunanese and Sichuan", "Chinese", "Shanghainese", "Taiwanese", "Dim Sum", "Taizhou", "Noodles and congee"), 
+                   French = c("Classic French", "French contemporary", "Creative French", "French", "Modern French"),
+                   British = c("Creative British", "Traditional British", "Modern British"), 
+                   Other_European = c("European", "European contemporary", "Austrian", "Danish", "Finnish"),
+                   Meats = c("Meats and grills", "Barbecue"),
+                   Modern = c("modern", "Contemporary", "creative", "Fusion", "Modern cuisine", "Creative", "Gastropub", "Innovative"), 
+                   Other = c("International", "Street Food", "Temple cuisine", "Seafood", "Vegetarian", "Classic cuisine", "Market cuisine", "Regional cuisine", "Steakhouse", "Moroccan"), 
+                   Japanese = c("Japanese contemporary", "Sushi", "Teppanyaki", "Japanese"),
+                   Scandinavian = c("Scandinavian"),
+                   Italian = c("Italian", "Italian contemporary"),
+                   Korean = c("Korean", "Korean contemporary"), 
+                   Mediterranean = c("Mediterranean", "Mediterranean cuisine"),
+                   Thai = c("Thai", "Southern Thai", "Thai Contemporary"), 
+                   Indian = c("Indian"), 
+                   Spanish = c("Spanish"), 
+                   Mexican = c("Mexican"))
+  )
+```
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+data = data %>%
+  mutate(
+    Stars = recode(star, "one" = "1", "two" = "2", "three" = "3"))
+```
+
+&nbsp;
+
+## **Pirce distribution for each star groups' restaurants**
+
+To learn more about Michelin restaurants, we decided to investigate how is the star rating associated with restaurant's price level. 
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+data %>%
+  mutate(
+    price = as.numeric(price)) %>%
+  drop_na(Stars, price) %>%
+  ggplot(aes(x = Stars, y = price, fill = Stars))+
+    geom_violin(alpha = 0.5) +
+  labs(
+    title = "Price distribution for each Star groups",
+    x = "Stars", 
+    y = "Price"
+  )
+```
+
+Looking at the distribution of price separately for each star rating groups, the violin graph shows that 1-star restaurants have a spread out distribution of price levels, while 2-star restaurants and 3-star restaurants have a higher distribution of price at 4 level and 5 level. This could potentially suggest that higher stared restaurants have higher price levels. 
+
+&nbsp;
+
+## **Average price level for each star rating groups**
+
+We can further confirm our guess by plotting the average price level for each star groups: 
+
+```{r echo = FALSE, message = FALSE, warning=FALSE}
+data2 = data %>%
+  mutate(
+    price = as.numeric(price)
+  ) %>%
+  drop_na(price, Stars) %>%
+  group_by(Stars) %>%
+  summarize(avg_price = mean(price)) 
+
+data2 %>%
+  ggplot(aes(x = Stars, y = avg_price, color = Stars, group = 1)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Average price for each Star groups", 
+    x = "Stars", 
+    y = "Average price"
+  )
+```
+
+The plot shows that there is a large jump on average price between 2-star restaurants and 1-star restaurants. The average price level keeps increasing from 2-star to 3-star restaurants with a smaller increment. Star level positively correlates with price level, which is consistent what we would normally expected that restaurants with higher star ratings have higher price level. 
+
+&nbsp;
+
+## **Limitations**
+
+Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 

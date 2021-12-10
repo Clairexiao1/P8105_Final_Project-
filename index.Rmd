@@ -38,14 +38,17 @@ In the first part of our project. We want to explore our current dataset [https:
 
 2. Cuisine Types and Michelin Stars   
    
-Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded on, two three stars. Second part of our project focused on Michelin cuisine types and star ratings. We are curious about whether certain cuisine types usually have higher ranking in Michelin Star? 
+Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded one, two, or three stars. Second part of our project focused on Michelin cuisine types and star ratings. We are curious about whether certain cuisine types usually have higher ranking in Michelin Star? 
 
 3. Cuisine Type and their Prices
 
 Following part two, we want to further investigate on the prices of Michelin Stars. Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent? Let's find out!
 
+4. Michelin stars and prices
 
-4. Interactive Heat Map 
+Now knowing how cuisine types are related to prices and stars, we are curious if restaurants' star levels actually have impacts on their prices. Is it true that restaurants with high star ratings will have higher price levels? We investigated on the relationship between stars and price levels in this section. 
+
+5. Interactive Heat Map 
 
 Last but not least, we utilized latitude & longitude information in our dataset to give you a direct, interactive heat map showing the distribution of the Michelin Restaurants around the world. You can filter your own variable of interest like: Michelin Star Rating, Continent and Cuisine Type to find the Michelin Restaurant that you are looking for!
 

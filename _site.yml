@@ -12,6 +12,8 @@ navbar:
           href: Final_project_part_3.html
         - text: 'Cuisine Type and Restaurant Price'
           href: Final_project_part_2.html
+        - text: 'Michelin Stars and Restaurant Price'
+          href: Final_project_part_4.html
     - text: "Interactive Map"
       href:  https://clairexiao1002.shinyapps.io/P8105_final_mapping/
     - text: 'Project Report'
