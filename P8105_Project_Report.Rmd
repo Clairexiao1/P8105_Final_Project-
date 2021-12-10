@@ -284,6 +284,12 @@ Cuisine type and Michelin stars:
 
 By recategorizing cuisine types and plotting different plots, we are able to see the distribution of all cuisine types and their star rankings worldwide, as well as for different continent. Such comparison is very interesting that it gives us a great overview of which cuisine type is rated with the highest star ranking in each continent. From the results, we see French cuisine is relatively the highest starred cuisine type. One thing to note is that the original cuisine type classification in the dataset was very detailed and the categories tend to be repetitive. This could be less helpful when doing statistical analysis and requires further cleaning in a way that is more appropriate for a specific analysis. 
 
+Cuisine type and price:
+
+In this section, we would like to explore more on whether certain cuisine types have higher prices and whether the relationship is stratified by their continent. First, we discovered that Modern Cuisine, Contemporary, Japanese, Creative, Cantonese, Modern British and French have the largest number of restaurants around the world and Europe has the largest number of Michelin Restaurants. From the results, we see Mediterranean cuisines and Japanese cuisines are usually pricier while cuisine type like Chinese and Thai are usually cheaper. This could gave us insights on one main point: that cultures that tend to share their meals are likely to have lower prices in Michelin Restaurants. Therefore, the culture of eating might significantly influence the average prices for dining at a Michelin Restaurants. 
+
+
+
 Michelin stars and price:
 
 For the relationship between stars and price levels, it is reasonable to predict that restaurants with higher stars may have higher prices. Results from the graphs are consistent with what we hypothesized. However, formal statistical analysis and model building could help with providing detailed information on this correlation. Here in our analysis, price is being treated as a continuous variable, but truly it represents the level of a restaurant's price. In a formal linear model and statistical analysis, it should be more appropriate and the results would be better if price, the dependent variable, is continuous. More information is needed and therefore this is also one of our dataset's limitation. 
