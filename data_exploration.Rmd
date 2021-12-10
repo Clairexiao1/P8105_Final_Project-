@@ -44,7 +44,7 @@ michelin_df =
 
 &nbsp;
 
-### Michelin Restaurants by Country
+### **Michelin Restaurants by Country**
 
 ```{r echo=FALSE}
 michelin_df %>%
@@ -55,7 +55,7 @@ michelin_df %>%
   knitr::kable()
 ```
 
-This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in USA, United Kingdom, and China.  
+This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in **USA, United Kingdom, and China**.  
 
 &nbsp;
 
@@ -77,7 +77,8 @@ michelin_df %>%
 )
 ```
 
-This graph clearly shows that more half of the Michelin restaurants are in USA, United Kingdom, and China. 
+This graph clearly shows that more half of the Michelin restaurants are in **USA, United Kingdom, and China**.
+
 
 &nbsp;
 
@@ -147,6 +148,10 @@ rankings.
 
 &nbsp;
 
+![The French Laundry, three-star, 350 - 450 USD, USA](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/7e212f89-0f0d-4879-a515-0be47a4024b3.jpg?width=1000){Width=70%}
+
+&nbsp;
+
 If we want to enjoy a Michelin meal with limited budget, where should we go?
 
 &nbsp;
@@ -173,4 +178,8 @@ You should also go to **Hong Kong**! We also notice that there are **11 restaura
 affordable price in Macau**. Since Hong Kong and Macau are very close to each other, 
 you can definitely plan to enjoy delicious food from these two cities during the same
 trip.
+
+&nbsp;
+
+![Tim Ho Wan (Sham Shui Po), one-star restaurant, 50 - 100 HKD, Hong Kong ](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/56a01fe4-4b58-4f06-b707-639d80a5f9d0.jpg?width=1000){width=70%}
 

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Best Restaurant</title>
+
+<script src="site_libs/header-attrs-2.11.3/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="data_exploration.html">Data Exploration</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Final_project_part_3.html">Cuisine Type and Michelin Stars</a>
+    </li>
+    <li>
+      <a href="Final_project_part_2.html">Cuisine Type and Restaurant Price</a>
+    </li>
+    <li>
+      <a href="Final_project_part_4.html">Michelin Stars and Restaurant Price</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://clairexiao1002.shinyapps.io/P8105_final_mapping/">Interactive Map</a>
+</li>
+<li>
+  <a href="P8105_Project_Report.html">Project Report</a>
+</li>
+<li>
+  <a href="mailto:&lt;zc2555@cumc.columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Clairexiao1/P8105_Final_Project-">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><strong>Best Restaurant</strong></h1>
+
+</div>
+
+
+<p> </p>
+<p>Our next goal is to find the best restaurant (in 2021) in the world. <strong>Welcome to the World of Fine Dining</strong>!</p>
+<p><img src="https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/ad9bcb42-56e4-4bd3-8f20-f70f8178ef88.jpg?width=1000" /></p>
+<p> </p>
+<div id="three-star-restaurants" class="section level2">
+<h2><strong>Three-star Restaurants</strong></h2>
+<p> </p>
+<p>First, we want to take a look at the 133 three-star Michelin restaurants in the world.</p>
+<p>By definition, Three MICHELIN Stars means “Exceptional cuisine, worth a special journey!”</p>
+<p> </p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">France</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Japan</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left">China</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">United States</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Italy</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">Spain</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">Germany</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">Singapore</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Switzerland</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Belgium</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Denmark</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Netherlands</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">South Korea</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Austria</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Norway</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Sweden</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<div id="htmlwidget-7b701d2d4f893ea83f5c" style="width:90%;height:345.6px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b701d2d4f893ea83f5c">{"x":{"visdat":{"748c69b34c81":["function () ","plotlyVisDat"]},"cur_data":"748c69b34c81","attrs":{"748c69b34c81":{"y":{},"x":{},"color":{},"colors":"viridis","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"Country","type":"category","categoryorder":"array","categoryarray":["Austria","Norway","Sweden","Belgium","Denmark","Netherlands","South Korea","Singapore","Switzerland","United Kingdom","Germany","Italy","Spain","United States","China","Japan","France"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number of Michelin Restaurants"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"y":[1],"x":["Austria"],"type":"bar","name":"Austria","marker":{"color":"rgba(68,1,84,1)","line":{"color":"rgba(68,1,84,1)"}},"textfont":{"color":"rgba(68,1,84,1)"},"error_y":{"color":"rgba(68,1,84,1)"},"error_x":{"color":"rgba(68,1,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1],"x":["Norway"],"type":"bar","name":"Norway","marker":{"color":"rgba(72,24,106,1)","line":{"color":"rgba(72,24,106,1)"}},"textfont":{"color":"rgba(72,24,106,1)"},"error_y":{"color":"rgba(72,24,106,1)"},"error_x":{"color":"rgba(72,24,106,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[1],"x":["Sweden"],"type":"bar","name":"Sweden","marker":{"color":"rgba(71,45,123,1)","line":{"color":"rgba(71,45,123,1)"}},"textfont":{"color":"rgba(71,45,123,1)"},"error_y":{"color":"rgba(71,45,123,1)"},"error_x":{"color":"rgba(71,45,123,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Belgium"],"type":"bar","name":"Belgium","marker":{"color":"rgba(66,64,134,1)","line":{"color":"rgba(66,64,134,1)"}},"textfont":{"color":"rgba(66,64,134,1)"},"error_y":{"color":"rgba(66,64,134,1)"},"error_x":{"color":"rgba(66,64,134,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Denmark"],"type":"bar","name":"Denmark","marker":{"color":"rgba(59,82,139,1)","line":{"color":"rgba(59,82,139,1)"}},"textfont":{"color":"rgba(59,82,139,1)"},"error_y":{"color":"rgba(59,82,139,1)"},"error_x":{"color":"rgba(59,82,139,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["Netherlands"],"type":"bar","name":"Netherlands","marker":{"color":"rgba(51,99,141,1)","line":{"color":"rgba(51,99,141,1)"}},"textfont":{"color":"rgba(51,99,141,1)"},"error_y":{"color":"rgba(51,99,141,1)"},"error_x":{"color":"rgba(51,99,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[2],"x":["South Korea"],"type":"bar","name":"South Korea","marker":{"color":"rgba(44,114,142,1)","line":{"color":"rgba(44,114,142,1)"}},"textfont":{"color":"rgba(44,114,142,1)"},"error_y":{"color":"rgba(44,114,142,1)"},"error_x":{"color":"rgba(44,114,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3],"x":["Singapore"],"type":"bar","name":"Singapore","marker":{"color":"rgba(38,130,142,1)","line":{"color":"rgba(38,130,142,1)"}},"textfont":{"color":"rgba(38,130,142,1)"},"error_y":{"color":"rgba(38,130,142,1)"},"error_x":{"color":"rgba(38,130,142,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[3],"x":["Switzerland"],"type":"bar","name":"Switzerland","marker":{"color":"rgba(33,144,141,1)","line":{"color":"rgba(33,144,141,1)"}},"textfont":{"color":"rgba(33,144,141,1)"},"error_y":{"color":"rgba(33,144,141,1)"},"error_x":{"color":"rgba(33,144,141,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[7],"x":["United Kingdom"],"type":"bar","name":"United Kingdom","marker":{"color":"rgba(31,159,136,1)","line":{"color":"rgba(31,159,136,1)"}},"textfont":{"color":"rgba(31,159,136,1)"},"error_y":{"color":"rgba(31,159,136,1)"},"error_x":{"color":"rgba(31,159,136,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[10],"x":["Germany"],"type":"bar","name":"Germany","marker":{"color":"rgba(39,173,129,1)","line":{"color":"rgba(39,173,129,1)"}},"textfont":{"color":"rgba(39,173,129,1)"},"error_y":{"color":"rgba(39,173,129,1)"},"error_x":{"color":"rgba(39,173,129,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11],"x":["Italy"],"type":"bar","name":"Italy","marker":{"color":"rgba(62,188,116,1)","line":{"color":"rgba(62,188,116,1)"}},"textfont":{"color":"rgba(62,188,116,1)"},"error_y":{"color":"rgba(62,188,116,1)"},"error_x":{"color":"rgba(62,188,116,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[11],"x":["Spain"],"type":"bar","name":"Spain","marker":{"color":"rgba(93,200,99,1)","line":{"color":"rgba(93,200,99,1)"}},"textfont":{"color":"rgba(93,200,99,1)"},"error_y":{"color":"rgba(93,200,99,1)"},"error_x":{"color":"rgba(93,200,99,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[13],"x":["United States"],"type":"bar","name":"United States","marker":{"color":"rgba(130,211,77,1)","line":{"color":"rgba(130,211,77,1)"}},"textfont":{"color":"rgba(130,211,77,1)"},"error_y":{"color":"rgba(130,211,77,1)"},"error_x":{"color":"rgba(130,211,77,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[14],"x":["China"],"type":"bar","name":"China","marker":{"color":"rgba(170,220,50,1)","line":{"color":"rgba(170,220,50,1)"}},"textfont":{"color":"rgba(170,220,50,1)"},"error_y":{"color":"rgba(170,220,50,1)"},"error_x":{"color":"rgba(170,220,50,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[21],"x":["Japan"],"type":"bar","name":"Japan","marker":{"color":"rgba(213,226,26,1)","line":{"color":"rgba(213,226,26,1)"}},"textfont":{"color":"rgba(213,226,26,1)"},"error_y":{"color":"rgba(213,226,26,1)"},"error_x":{"color":"rgba(213,226,26,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[29],"x":["France"],"type":"bar","name":"France","marker":{"color":"rgba(253,231,37,1)","line":{"color":"rgba(253,231,37,1)"}},"textfont":{"color":"rgba(253,231,37,1)"},"error_y":{"color":"rgba(253,231,37,1)"},"error_x":{"color":"rgba(253,231,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>7 countries own more than 10 three-star restaurants: <strong>France, Japan, China, United States, Italy, Spain, Germany</strong>.</p>
+<p> </p>
+</div>
+<div id="which-one-is-the-best" class="section level2">
+<h2><strong>Which one is the Best?</strong></h2>
+<p>Since the Michelin Guide itself does not rank restaurants, how can we find the best restaurant in the world.</p>
+<p> </p>
+<div id="step-1-overlap-between-rankings" class="section level3">
+<h3>Step 1: Overlap between rankings</h3>
+<p>Another famous restaurant ranking is The World’s 50 Best Restaurants. We want to see which restaurant can be awarded three-star and Best 50 simultaneously. The assumption for this approach is that when a restaurant is acknowledged by multiple rankings, it is more likely that the restaurant provides almost the best food.</p>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="12%" />
+<col width="39%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">location</th>
+<th align="left">restaurants</th>
+<th align="left">chef_s</th>
+<th align="left">awarded_since</th>
+<th align="left">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Shanghai</td>
+<td align="left">Ultraviolet</td>
+<td align="left">Paul Pairet</td>
+<td align="left">2018</td>
+<td align="left">China</td>
+</tr>
+<tr class="even">
+<td align="left">Copenhagen</td>
+<td align="left">Geranium</td>
+<td align="left">Rasmus Kofoed</td>
+<td align="left">2016</td>
+<td align="left">Denmark</td>
+</tr>
+<tr class="odd">
+<td align="left">Copenhagen</td>
+<td align="left">Noma</td>
+<td align="left">René Redzepi</td>
+<td align="left">2021</td>
+<td align="left">Denmark</td>
+</tr>
+<tr class="even">
+<td align="left">Paris 7e</td>
+<td align="left">Arpège</td>
+<td align="left">Alain Passard</td>
+<td align="left">1996</td>
+<td align="left">France</td>
+</tr>
+<tr class="odd">
+<td align="left">Alba</td>
+<td align="left">Piazza Duomo</td>
+<td align="left">Enrico Crippa</td>
+<td align="left">2013</td>
+<td align="left">Italy</td>
+</tr>
+<tr class="even">
+<td align="left">Castel di Sangro</td>
+<td align="left">Reale</td>
+<td align="left">Niko Romito</td>
+<td align="left">2014</td>
+<td align="left">Italy</td>
+</tr>
+<tr class="odd">
+<td align="left">Rubano</td>
+<td align="left">Le Calandre</td>
+<td align="left">Massimiliano Alajmo</td>
+<td align="left">2002</td>
+<td align="left">Italy</td>
+</tr>
+<tr class="even">
+<td align="left">Oslo</td>
+<td align="left">Maaemo</td>
+<td align="left">Esben Holmboe Bang</td>
+<td align="left">2016</td>
+<td align="left">Norway</td>
+</tr>
+<tr class="odd">
+<td align="left">Singapore</td>
+<td align="left">Odette</td>
+<td align="left">Julien Royer</td>
+<td align="left">2019</td>
+<td align="left">Singapore</td>
+</tr>
+<tr class="even">
+<td align="left">Larrabetzu</td>
+<td align="left">Azurmendi</td>
+<td align="left">Eneko Atxa</td>
+<td align="left">2013</td>
+<td align="left">Spain</td>
+</tr>
+<tr class="odd">
+<td align="left">Stockholm</td>
+<td align="left">Frantzén</td>
+<td align="left">Björn Frantzén</td>
+<td align="left">2018</td>
+<td align="left">Sweden</td>
+</tr>
+<tr class="even">
+<td align="left">Healdsburg, California</td>
+<td align="left">SingleThread</td>
+<td align="left">Kyle Connaughton</td>
+<td align="left">2019</td>
+<td align="left">United States</td>
+</tr>
+<tr class="odd">
+<td align="left">New York City</td>
+<td align="left">Le Bernardin</td>
+<td align="left">Éric Ripert, Chris Muller, and Eric Gestel</td>
+<td align="left">2006</td>
+<td align="left">United States</td>
+</tr>
+<tr class="even">
+<td align="left">San Francisco</td>
+<td align="left">Atelier Crenn</td>
+<td align="left">Dominique Crenn</td>
+<td align="left">2019</td>
+<td align="left">United States</td>
+</tr>
+<tr class="odd">
+<td align="left">San Francisco</td>
+<td align="left">Benu</td>
+<td align="left">Corey Lee and Brandon Rodgers</td>
+<td align="left">2015</td>
+<td align="left">United States</td>
+</tr>
+</tbody>
+</table>
+<p>Only <strong>15</strong> restaurants can be three-star and Best 50 at the same time in the world! However, our goal is to find the best although they are all excellent restaurants.</p>
+<p> </p>
+</div>
+<div id="step-2-award-history" class="section level3">
+<h3>Step 2: Award history</h3>
+<p>Another thing that is critical for a restaurant in the stability. The quality of food is determined by multiple factors - supply chain, staff, and the most important, chef. Sometimes, the ranking of a restaurant is largely dependent on the chef. The fame is for the chef, but not for the restaurant itself. Here, we want to find a restaurant that provide high-quality food in a stable way.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="left">restaurants</th>
+<th align="left">awarded_since</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">France</td>
+<td align="left">Arpège</td>
+<td align="left">1996</td>
+</tr>
+<tr class="even">
+<td align="left">Italy</td>
+<td align="left">Le Calandre</td>
+<td align="left">2002</td>
+</tr>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="left">Le Bernardin</td>
+<td align="left">2006</td>
+</tr>
+<tr class="even">
+<td align="left">Italy</td>
+<td align="left">Piazza Duomo</td>
+<td align="left">2013</td>
+</tr>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="left">Azurmendi</td>
+<td align="left">2013</td>
+</tr>
+<tr class="even">
+<td align="left">Italy</td>
+<td align="left">Reale</td>
+<td align="left">2014</td>
+</tr>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="left">Benu</td>
+<td align="left">2015</td>
+</tr>
+<tr class="even">
+<td align="left">Denmark</td>
+<td align="left">Geranium</td>
+<td align="left">2016</td>
+</tr>
+<tr class="odd">
+<td align="left">Norway</td>
+<td align="left">Maaemo</td>
+<td align="left">2016</td>
+</tr>
+<tr class="even">
+<td align="left">China</td>
+<td align="left">Ultraviolet</td>
+<td align="left">2018</td>
+</tr>
+<tr class="odd">
+<td align="left">Sweden</td>
+<td align="left">Frantzén</td>
+<td align="left">2018</td>
+</tr>
+<tr class="even">
+<td align="left">Singapore</td>
+<td align="left">Odette</td>
+<td align="left">2019</td>
+</tr>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="left">SingleThread</td>
+<td align="left">2019</td>
+</tr>
+<tr class="even">
+<td align="left">United States</td>
+<td align="left">Atelier Crenn</td>
+<td align="left">2019</td>
+</tr>
+<tr class="odd">
+<td align="left">Denmark</td>
+<td align="left">Noma</td>
+<td align="left">2021</td>
+</tr>
+</tbody>
+</table>
+<p>From the above table, we can see only one restaurant is awarded three-star since the last century, and it is also within Best 50 this year.</p>
+<p> </p>
+</div>
+</div>
+<div id="our-recommendations" class="section level2">
+<h2><strong>Our Recommendations</strong></h2>
+<p> </p>
+<div id="best-in-the-world" class="section level3">
+<h3>Best in the world</h3>
+<p>Based on our analysis above, we know that the best restaurant in the world is <strong>Arpège</strong>!</p>
+<p>You can find their website here: <a href="https://www.alain-passard.com/">Arpège</a>.</p>
+<p><img src="https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/ac44f41d-a032-491a-8d5e-e6fc1d6d1634.jpg?width=1000" style="width:50.0%" /><img src="https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/974deb72-9570-4364-a390-abaa634b6036.jpg?width=1000" style="width:50.0%" /></p>
+<p> </p>
+</div>
+<div id="best-in-nyc" class="section level3">
+<h3>Best in NYC</h3>
+<p>It is hard for us to go to France to enjoy the best food in the world due to Covid-19. Fortunately, there is an absolutely excellent restaurant here in NYC.</p>
+<p><strong>Le Bernardin</strong>, three-star and Best 50, is awarded 3-star since 2006. Most importantly, it is in 155 W 51st, very close to Columbia!</p>
+<p>You can find their website here: <a href="https://www.le-bernardin.com/home">Le Bernardin</a>.</p>
+<p><img src="https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/b0adcfa7-10a1-4af8-8229-568adecd0ba0.jpg?width=1000" style="width:50.0%" /><img src="https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/c037e587-1678-4683-a8f3-d3348643ef89.jpg?width=1000" style="width:50.0%" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
