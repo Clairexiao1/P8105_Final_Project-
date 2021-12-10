@@ -39,7 +39,7 @@ data_2 = data %>%
 plot_1 = data_2 %>%
   ggplot(aes(x = cuisine, y = avg_star))+
   geom_point(color = "red") +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.3, hjust = 0.3))+
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.3, hjust = 0.3))+
   labs(
     title = "Average Rating Stars for each Baseline Cuisine type",
     x = "Baseline Cuisine type", 

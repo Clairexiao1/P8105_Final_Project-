@@ -28,7 +28,7 @@ final = read_csv("./data/michelin_data.csv")
 
 <br>Within our existing dataset, let's first take a look at the number of cuisine types in our Michelin restaurant. We can see that among all Michelin Restaurant, **Modern Cuisine, Contemporary, Japanese, Creative, Cantonese, Modern British and French** are at the top of the list. 
 
-```{r message=FALSE, warning =FALSE}
+```{r message=FALSE, warning =FALSE, out.width=765}
 cuisine_type = final %>% 
    group_by(cuisine) %>% 
    summarise(count = n())  %>% 
@@ -38,7 +38,7 @@ cuisine_plot =
   cuisine_type %>%
   ggplot(aes(x = cuisine, y = count)) +
   geom_point(color = "red") + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.9, hjust = 0.1)) + 
   ggtitle("Types of Cuisine Among All Micheline Restaurants") +
   xlab("Cuisine Type") +
   ylab("Number of Restaurant") 
@@ -101,7 +101,7 @@ cuisine_plot =
   cuisine_type %>%
   ggplot(aes(x = cuisine_cat, y = count, fill=star)) +
   geom_bar(stat = 'identity',position = 'dodge') + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.6, hjust = 0.5)) + 
   ggtitle("Number of Restaurants in each Cuisine Type by Michelin Star") +
   xlab("Cuisine Type") +
   ylab("Number of Restaurant")
@@ -125,7 +125,7 @@ world_plot = final_clean %>%
     summarise(mean_price = mean(price))  %>%
   ggplot(aes(x = cuisine, y = mean_price, color = "red")) + 
   geom_point(color = "darkgreen")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.6, hjust = 0.5)) + 
   ggtitle("Cuisine types and their average price around the World") +
   xlab("Cuisine Type") +
   ylab("Mean Price of this Cuisine Type") 
@@ -174,7 +174,7 @@ asia_plot = final_asia %>%
     summarise(mean_price = mean(price))  %>%
   ggplot(aes(x = cuisine_cat, y = mean_price)) + 
   geom_point(color = "red")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6, hjust = 0.5)) + 
   ggtitle("Asia: The Cuisine type and their average prices") +
   xlab("Cuisine Type") +
   ylab("Mean Price of this Cuisine Type") 
@@ -198,7 +198,7 @@ europe_plot = final_europe %>%
     summarise(mean_price = mean(price))  %>%
   ggplot(aes(x = cuisine_cat, y = mean_price)) + 
   geom_point(color = "purple")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6, hjust = 0.5)) + 
   ggtitle("Europe: Cuisine types and their average prices") +
   xlab("Cuisine Type") +
   ylab("Mean Price of this Cuisine Type") 
@@ -220,7 +220,7 @@ na_plot = final_na %>%
     summarise(mean_price = mean(price))  %>%
   ggplot(aes(x = cuisine_cat, y = mean_price)) + 
   geom_point(color = "darkblue")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6, hjust = 0.5)) + 
   ggtitle("North America: Cuisine types and their average prices") +
   xlab("Cuisine Type") +
   ylab("Mean Price of this Cuisine Type") 
@@ -242,7 +242,7 @@ sa_plot = final_sa %>%
     summarise(mean_price = mean(price))  %>%
   ggplot(aes(x = cuisine_cat, y = mean_price)) + 
   geom_point(color = "pink")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5)) + 
+  theme(axis.text.x = element_text( vjust = 0.6, hjust = 0.5)) + 
   ggtitle("South America: The relationship between cuisine types and their prices") +
   xlab("Cuisine Type") +
   ylab("Mean Price of this Cuisine Type") 
