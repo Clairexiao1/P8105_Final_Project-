@@ -5,10 +5,9 @@ account: clairexiao1002
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5297040
-bundleId: 5349242
+bundleId: 5353181
 url: https://clairexiao1002.shinyapps.io/P8105_final_mapping/
-when: 1639035191.83077
-lastSyncTime: 1639035191.83078
+when: 1639099746.15492
+lastSyncTime: 1639099746.15494
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: _site.yml|Final_project_part_2_files/figure-html/unnamed-chunk-14-1.png|Final_project_part_2.html|Final_project_part_2.Rmd|Final_project_part_3.html|Final_project_part_3.Rmd|index.html|index.Rmd|Michelin.png|P8105_final_mapping.Rmd|P8105_Project_Proposal.html|P8105_Project_Proposal.md|P8105_Project_Proposal.Rmd|P8105_Project_Report.html|P8105_Project_Report.Rmd|README.md|data|Final_project_part_3_files|site_libs

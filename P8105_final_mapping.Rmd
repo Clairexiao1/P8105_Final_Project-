@@ -21,6 +21,7 @@ library(rvest)
 library(shiny)
 library(RColorBrewer)
 library(flexdashboard)
+library(plotly)
 
 options(
   ggplot2.continuous.colour = "viridis",
@@ -46,6 +47,29 @@ michelin_map <-
     star = fct_relevel(star,"three","two","one")) %>%
   drop_na(longitude,latitude,city)
 
+michelin_cuisine <- 
+  michelin_df %>%
+  mutate(cuisine_cat = fct_collapse(cuisine,
+                   American = c("American", "Californian"), 
+                   Australian = c("Australian"),
+                   Other_Asian = c("Asian", "Asian contemporary", "Asian influences", "Peranakan"),
+                   Chinese = c("Cantonese", "Hang Zhou", "Sichuan", "Sichuan-Huai Yang", "Cantonese Roast Meats", "Fujian", "Hunanese and Sichuan", "Chinese", "Shanghainese", "Taiwanese", "Dim Sum", "Taizhou", "Noodles and congee"), 
+                   French = c("Classic French", "French contemporary", "Creative French", "French", "Modern French"),
+                   British = c("Creative British", "Traditional British", "Modern British"), 
+                   Other_European = c("European", "European contemporary", "Austrian", "Danish", "Finnish"),
+                   Meats = c("Meats and grills", "Barbecue"),
+                   Modern = c("modern", "Contemporary", "creative", "Fusion", "Modern cuisine", "Creative", "Gastropub", "Innovative"), 
+                   Other = c("International", "Street Food", "Temple cuisine", "Seafood", "Vegetarian", "Classic cuisine", "Market cuisine", "Regional cuisine", "Steakhouse", "Moroccan"), 
+                   Japanese = c("Japanese contemporary", "Sushi", "Teppanyaki", "Japanese"),
+                   Scandinavian = c("Scandinavian"),
+                   Italian = c("Italian", "Italian contemporary"),
+                   Korean = c("Korean", "Korean contemporary"), 
+                   Mediterranean = c("Mediterranean", "Mediterranean cuisine"),
+                   Thai = c("Thai", "Southern Thai", "Thai Contemporary"), 
+                   Indian = c("Indian"), 
+                   Spanish = c("Spanish"), 
+                   Mexican = c("Mexican"))) %>% 
+     drop_na(price, continent)
 ```
 
 Global distribution (2018-2020)
@@ -91,7 +115,7 @@ selectInput(
 Column {data-width=800}
 -----------------------------------------------------------------------
 
-### Newly released Michelin restaurants global distribution (2018-2020)
+### Newly Released Michelin Restaurants Global Distribution (2018-2020)
 
 ```{r,eval = T}
 color_pat <-
@@ -119,4 +143,70 @@ renderLeaflet({
 })
 ```
 
+Cuisine Type Overview 
+=======================================================================
+
+Options {.sidebar}
+-----------------------------------------------------------------------
+
+```{r}
+star_bar_cuisine <-
+  michelin_cuisine %>%
+  distinct(star) %>%
+  pull()
+
+continent_bar_cuisine <-
+  michelin_cuisine %>%
+  distinct(continent) %>%
+  pull()
+
+#price
+sliderInput(
+  "Price_cuisine",
+  h3("Price Level"),
+  1,5,
+  value = c(1,5),
+  sep = "")
+
+#star cuisine side bar
+selectInput(
+  "star_cuisine",
+  h3("Michelin Star Level"),
+  choices = star_bar_cuisine,
+  selected = "one")
+
+#continent cuisine side bar
+selectInput(
+  "continent_cuisine",
+  h3("Continent"),
+  choices = continent_bar_cuisine,
+  selected = "Asia")
+
+```
+
+Column {data-width=800}
+-----------------------------------------------------------------------
+
+### 2018-2019 Michelin Restaurants Cuisine Type Overview 
+
+```{r, eval = T}
+renderPlotly({
+  michelin_cuisine %>%
+    filter(
+      star == input[["star_cuisine"]],
+      continent == input[["continent_cuisine"]],
+      price %in% as.numeric(input[["Price_cuisine"]][1]):as.numeric(input[["Price_cuisine"]][2])) %>%
+    count(cuisine_cat) %>%
+    arrange(desc(n)) %>%
+    mutate(
+      cuisine_cat = factor(cuisine_cat),
+      cuisine_cat = fct_reorder(cuisine_cat,n)) %>%
+    plot_ly(
+      y = ~n, x =~cuisine_cat,color = ~cuisine_cat,
+      type = "bar", colors = "viridis") %>%
+    layout(
+      yaxis = list(title = "Total number of restaurants"),
+      xaxis = list(title = "Cuisine Type", automargin = TRUE, tickangle = 45))
+  })
+```
 
