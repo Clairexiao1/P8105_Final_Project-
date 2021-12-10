@@ -113,10 +113,10 @@ data2 %>%
   )
 ```
 
-<br>The plot shows that there is a large jump on average price between 2-star restaurants and 1-star restaurants. The average price level keeps increasing from 2-star to 3-star restaurants with a smaller increment. Star level positively correlates with price level, which is consistent what we would normally expected that restaurants with higher star ratings have higher price level. 
+<br>The plot shows that there is a large jump on average price between 2-star restaurants and 1-star restaurants. The average price level keeps increasing from 2-star to 3-star restaurants with a smaller increment. Star level positively correlates with price level, which is consistent what we would normally expect that restaurants with higher star ratings have higher price level. 
 
 &nbsp;
 
 ## Discussion 
 
-<br>Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 
+<br>Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would lose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 

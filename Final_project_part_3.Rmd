@@ -11,6 +11,7 @@ editor_options:
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
 library(tidyverse)
+library(plotly)
 data = read.csv("./data/michelin_data.csv")
 ```
 
@@ -22,8 +23,8 @@ data = read.csv("./data/michelin_data.csv")
 
 <br>
 
-```{r echo = FALSE, warning=FALSE}
-data %>%
+```{r echo = FALSE, warning=FALSE, out.width=900}
+data_2 = data %>%
   mutate(cuisine  = as.factor(cuisine), 
          star = as.factor(star)) %>%
   mutate(star = recode(star, "one" = "1", "two" = "2", "three" = "3")) %>%
@@ -33,15 +34,19 @@ data %>%
   summarize(avg_star = mean(star)) %>%
   mutate(
     cuisine = fct_reorder(cuisine, avg_star)
-  ) %>%
+  ) 
+  
+plot_1 = data_2 %>%
   ggplot(aes(x = cuisine, y = avg_star))+
-  geom_point(color = "red")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.3, hjust = 0.3))+
+  geom_point(color = "red") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.3, hjust = 0.3))+
   labs(
     title = "Average Rating Stars for each Baseline Cuisine type",
     x = "Baseline Cuisine type", 
     y = "Average Stars"
   )
+
+ggplotly(plot_1)
 
 cuisine = data %>%
   group_by(cuisine) %>%
@@ -128,7 +133,7 @@ data = data %>%
 <br>
 
 ```{r echo = FALSE, warning=FALSE}
-data %>%
+data_3 = data %>%
   mutate(
     continent = as.factor(continent),
     Stars = as.numeric(Stars),
@@ -139,20 +144,19 @@ data %>%
   mutate(
     cuisine_new = as.factor(cuisine_new),
     cuisine_new = fct_reorder(cuisine_new, avg_star)
-  ) %>%
+  )
+
+plot_2 = data_3 %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
   geom_point(color = "blue")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type",
     y = "Average Stars", 
     x = "Cuisine type"
   )
 
-continent = data %>%
-  group_by(continent) %>%
-  drop_na(continent) %>%
-  summarize(n())
+ggplotly(plot_2)
 ```
 
 <br>
@@ -182,17 +186,19 @@ Asia = data %>%
   mutate(
     cuisine_new = as.factor(cuisine_new),
     cuisine_new = fct_reorder(cuisine_new, avg_star)
-  ) %>%
+  )
+
+plot_3 = Asia %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
   geom_point(color = "darkgreen")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in Asia",
     y = "Average Stars", 
     x = "Cuisine type"
   )
 
-Asia
+ggplotly(plot_3)
 ```
 
 In Asia, the top two rated cuisine types are still **Korean and French**, same to the top two rated cuisine types worldwide. 
@@ -216,17 +222,19 @@ Europe = data %>%
   mutate(
     cuisine_new = as.factor(cuisine_new),
     cuisine_new = fct_reorder(cuisine_new, avg_star)
-  ) %>%
+  )
+
+plot_4 = Europe %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
   geom_point(color = "darkorange")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in Europe",
     y = "Average Stars", 
     x = "Cuisine type"
   )
 
-Europe
+ggplotly(plot_4)
 ```
 
 In Europe, the top two rated cuisine types are **Japanese and French**. 
@@ -250,17 +258,19 @@ North_America = data %>%
   mutate(
     cuisine_new = as.factor(cuisine_new),
     cuisine_new = fct_reorder(cuisine_new, avg_star)
-  ) %>%
+  )
+
+plot_5 = North_America %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
   geom_point(color = "darkblue")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in North America",
     y = "Average Stars", 
     x = "Cuisine type"
   )
 
-North_America
+ggplotly(plot_5)
 ```
 
 In North America, the top two rated cuisine types are **Scandinavian and Other Asian**. 
@@ -284,17 +294,19 @@ South_America = data %>%
   mutate(
     cuisine_new = as.factor(cuisine_new),
     cuisine_new = fct_reorder(cuisine_new, avg_star)
-  ) %>%
+  )
+
+plot_6 = South_America %>%
   ggplot(aes(x = cuisine_new, y = avg_star))+
   geom_point(color = "purple")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.6, hjust = 0.5))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.6, hjust = 0.5))+
   labs(
     title = "Average Stars for each Cuisine type in South America",
     y = "Average Stars", 
     x = "Cuisine type"
   )
 
-South_America
+ggplotly(plot_6)
 ```
 
 In South America, the top rated cuisine type is **Modern food**. 
