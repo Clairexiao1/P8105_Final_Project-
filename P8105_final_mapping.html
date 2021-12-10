@@ -52,6 +52,7 @@ window.FlexDashboardComponents = [];
 <script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="site_libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="site_libs/plotly-binding-4.10.0/plotly.js"></script>
 <style type="text/css">
 
 /*
@@ -2676,11 +2677,59 @@ window.FlexDashboardComponents.push({
 <div id="section-column" class="section level2" data-width="800">
 <h2 data-width="800">Column</h2>
 <div id="section-newly-released-michelin-restaurants-global-distribution-2018-2020" class="section level3">
-<h3>Newly released Michelin restaurants global distribution (2018-2020)</h3>
+<h3>Newly Released Michelin Restaurants Global Distribution (2018-2020)</h3>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><div id="out29b175a1f6dd109a" style="width:100%; height:400px; " class="leaflet html-widget html-widget-output"></div></p>
+<p><div id="outf9ee824d34411808" style="width:100%; height:400px; " class="leaflet html-widget html-widget-output"></div></p>
+</div>
+</div>
+</div>
+<div id="section-cuisine-type-overview" class="section level1">
+<h1>Cuisine Type Overview</h1>
+<div id="section-options-1" class="section level2 sidebar">
+<h2 class="sidebar">Options</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="Price_cuisine-label" for="Price_cuisine">
+<h3>Price Level</h3>
+</label>
+<input class="js-range-slider" id="Price_cuisine" data-skin="shiny" data-type="double" data-min="1" data-max="5" data-from="1" data-to="5" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="" data-prettify-enabled="false" data-keyboard="true" data-drag-interval="true" data-data-type="number"/>
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="star_cuisine-label" for="star_cuisine">
+<h3>Michelin Star Level</h3>
+</label>
+<div>
+<select id="star_cuisine"><option value="one" selected>one</option>
+<option value="two">two</option>
+<option value="three">three</option></select>
+<script type="application/json" data-for="star_cuisine" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="continent_cuisine-label" for="continent_cuisine">
+<h3>Continent</h3>
+</label>
+<div>
+<select id="continent_cuisine"><option value="Europe">Europe</option>
+<option value="North America">North America</option>
+<option value="Asia" selected>Asia</option>
+<option value="South America">South America</option></select>
+<script type="application/json" data-for="continent_cuisine" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+</div>
+<div id="section-column-1" class="section level2" data-width="800">
+<h2 data-width="800">Column</h2>
+<div id="section-michelin-restaurants-cuisine-type-overview" class="section level3">
+<h3>2018-2019 Michelin Restaurants Cuisine Type Overview</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div id="out96335612fda10d52" style="width:100%; height:400px; " class="plotly html-widget html-widget-output shiny-report-size shiny-report-theme"></div></p>
 </div>
 </div>
 </div>
