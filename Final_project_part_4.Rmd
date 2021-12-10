@@ -1,5 +1,5 @@
 ---
-title: "**Michelin Stars and Price"
+title: "**Michelin Stars and Price**"
 author: "nz2333"
 date: "12/9/2021"
 output: html_document

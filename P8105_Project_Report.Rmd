@@ -53,16 +53,20 @@ h1.title {
 
 <br>1. "Are Michelin-starred Restaurants Predictable?"  [Link.](https://medium.com/@grantcho/are-michelin-starred-restaurants-predictable-8398c041f4ed)   
 
+<br>2. "Predicting Michelin Stars from Yelp Reviews in San Francisco"
+[Link.](https://nycdatascience.com/blog/student-works/predicting-michelin-stars-yelp-reviews-san-francisco/)
+
 &nbsp;   
 
 ## Questions 
 
 <br>In this project, we would like to explore the following questions:     
 
-1. To what extent can Michelin 3-Star restaurants keep their stars?      
-2. To what extent does the Michelin Guide overlap with other famous food rankings like the world’s 50 best restaurants?    
-3. Does the Michelin Guide have some preferences for some cuisines?     
-4. How Michelin restaurants change around the world by location? 
+1. How are Michelin Restaurants distributed around the world, by continent, by country? 
+2. How much does dining at Michelin Restaurants cost?
+3. Whether certain cuisine types usually have higher ranking in Michelin Star?
+4. Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
+5. What is the relationship between stars and prices? 
 
 &nbsp;   
 
@@ -108,9 +112,11 @@ Variable | Description
 
 ### _Data Cleaning_     
     
-<br>For general data cleaning, all three Michelin restaurants datasets were imported from [Michelin Restaurant Ratings Globally](https://www.kaggle.com/jackywang529/michelin-restaurants) in the format of csv. In each dataset, a new column `star` was added for indicating the star level of the restaurant. For example, in one-star Michelin restaurants dataset, `star` was set to `one` for all restaurants. The final 2018-2019 Michelin dataset was combined from one-star, two-stars and three-stars Michelin restaurant datasets by `rbind`. The variables were then renamed, recoded and selected based on if they were intuitive and if they were needed for analyses. For example, `region` was recoded to `country`, and new variable `continent` was created for later continental comparison analysis.     
+<br>For general data cleaning, all three Michelin restaurants datasets were imported from [Michelin Restaurant Ratings Globally](https://www.kaggle.com/jackywang529/michelin-restaurants) in the format of csv. In each dataset, a new column `star` was added for indicating the star level of the restaurant. For example, in one-star Michelin restaurants dataset, `star` was set to `one` for all restaurants. The final 2018-2019 Michelin dataset was combined from one-star, two-stars and three-stars Michelin restaurant datasets by `rbind`. The variables were then renamed, recoded and selected based on if they were intuitive and if they were needed for analyses. For example, `region` was recoded to `country`, and new variable `continent` was created for later continental comparison analysis.  
+
+Cuisine types are recoded into 19 simplified categories according to country and continent, and a new column `cuisine_new` is added to the dataset. `star` was recoded into numeric numbers 1-3 for future analysis. Column `price` is added by converting number of dollar signs to price level. For example, one dollar sign was recoded to 1 for `price`. 
       
-```{r, message=FALSE}
+```{r message=FALSE}
 one_star <-
   read_csv("./data/one-star-michelin-restaurants.csv") %>%
   mutate(star = "one")
@@ -178,7 +184,32 @@ michelin_df <-
     country == "Thailand" ~ "Asia",
     country == "United Kingdom" ~ "Europe",
     country == "Greece" ~ "Europe")) %>%
-  relocate(name, year,city,country,continent)
+  relocate(name, year,city,country,continent)%>%
+  mutate(
+    cuisine_new = fct_collapse(cuisine,
+                   American = c("American", "Californian"), 
+                   Australian = c("Australian"),
+                   Other_Asian = c("Asian", "Asian contemporary", "Asian influences", "Peranakan"),
+                   Chinese = c("Cantonese", "Hang Zhou", "Sichuan", "Sichuan-Huai Yang", "Cantonese Roast Meats", "Fujian", "Hunanese and Sichuan", "Chinese", "Shanghainese", "Taiwanese", "Dim Sum", "Taizhou", "Noodles and congee"), 
+                   French = c("Classic French", "French contemporary", "Creative French", "French", "Modern French"),
+                   British = c("Creative British", "Traditional British", "Modern British"), 
+                   Other_European = c("European", "European contemporary", "Austrian", "Danish", "Finnish"),
+                   Meats = c("Meats and grills", "Barbecue"),
+                   Modern = c("modern", "Contemporary", "creative", "Fusion", "Modern cuisine", "Creative", "Gastropub", "Innovative"), 
+                   Other = c("International", "Street Food", "Temple cuisine", "Seafood", "Vegetarian", "Classic cuisine", "Market cuisine", "Regional cuisine", "Steakhouse", "Moroccan"), 
+                   Japanese = c("Japanese contemporary", "Sushi", "Teppanyaki", "Japanese"),
+                   Scandinavian = c("Scandinavian"),
+                   Italian = c("Italian", "Italian contemporary"),
+                   Korean = c("Korean", "Korean contemporary"), 
+                   Mediterranean = c("Mediterranean", "Mediterranean cuisine"),
+                   Thai = c("Thai", "Southern Thai", "Thai Contemporary"), 
+                   Indian = c("Indian"), 
+                   Spanish = c("Spanish"), 
+                   Mexican = c("Mexican"))
+  ) %>%
+  mutate(star = recode(star, "one" = "1", "two" = "2", "three" = "3")) %>%
+  mutate(
+    star = as.numeric(star))
 
 #write.csv(michelin_df,"./data/michelin_data.csv", row.names = FALSE)
 
@@ -245,9 +276,17 @@ michelin_map %>%
 
 ## Additional analysis    
 
+Analysis on cuisine types and stars was done to examine the distrbution of cuisine types along with information on each type's star rating. Further analysis on cuisine types and price was performed to look at price level by cuisine types. Lastly, the relationship between stars and price levels was investigated through graphing.
+
 ## Discussion 
 
+
+
+
 ### _Limitations_ 
-<br>One limitation for interactive maps part is that the datasets we had for Michelin restaurants contained limited information, which prevented us from being able to include all Michelin restaurants released by Michelin Guide around the world into a more complete geographic distribution map. [Michelin Restaurant Ratings Globally](https://www.kaggle.com/jackywang529/michelin-restaurants) only contains restaurants info in following regions: Austria, California, Chicago, Croatia, Czech Republic, Denmark, Finland, Greece, Hong Kong, Hungary, Iceland, Macau, Norway, New York City, Poland, Ireland, Rio de Janeiro, Sao Paulo, South Korea, Singapore, Sweden, Taipei, Thailand, Washington DC, and United Kingdom. [Starred Restaurants of Michelin Guide 2020](https://data.public.lu/en/datasets/michelin-restaurants-in-2020/) contains restaurants info in some European countries, such as Germany, but the listing is still not complete. Therefore, after combining both two datasets, we still missed starred restaurants in Michelin popular countries, like Belgium, France, Italy and Japan. Although we tidied 2021 Michelin restaurants datasets by ourselves from Michelin Guide and Wikipedia, we still did not have the location information(i.e. longitude and latitude) of those Michelin restaurants.
+<br>One limitation for interactive maps part is that the datasets we had for Michelin restaurants contained limited information, which prevented us from being able to include all Michelin restaurants released by Michelin Guide around the world into a more complete geographic distribution map. [Michelin Restaurant Ratings Globally](https://www.kaggle.com/jackywang529/michelin-restaurants) only contains restaurants info in following regions: Austria, California, Chicago, Croatia, Czech Republic, Denmark, Finland, Greece, Hong Kong, Hungary, Iceland, Macau, Norway, New York City, Poland, Ireland, Rio de Janeiro, Sao Paulo, South Korea, Singapore, Sweden, Taipei, Thailand, Washington DC, and United Kingdom. [Starred Restaurants of Michelin Guide 2020](https://data.public.lu/en/datasets/michelin-restaurants-in-2020/) contains restaurants info in some European countries, such as Germany, but the listing is still not complete. Therefore, after combining both two datasets, we still missed starred restaurants in Michelin popular countries, like Belgium, France, Italy and Japan. Although we tidied 2021 Michelin restaurants datasets by ourselves from Michelin Guide and Wikipedia, we still did not have the location information(i.e. longitude and latitude) of those Michelin restaurants. 
+
+Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 
+
 
 ### _Conclusions_
