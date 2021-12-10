@@ -1,8 +1,12 @@
 ---
 title: "**Michelin Stars and Price**"
-author: "nz2333"
-date: "12/9/2021"
-output: html_document
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
@@ -61,9 +65,11 @@ data = data %>%
 
 &nbsp;
 
-## **Pirce distribution for each star groups' restaurants**
+## Price Distribution For Each Star Groups' Restaurants
 
-To learn more about Michelin restaurants, we decided to investigate how is the star rating associated with restaurant's price level. 
+<br>To learn more about Michelin restaurants, we decided to investigate how is the star rating associated with restaurant's price level. 
+
+<br>
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
 data %>%
@@ -73,19 +79,19 @@ data %>%
   ggplot(aes(x = Stars, y = price, fill = Stars))+
     geom_violin(alpha = 0.5) +
   labs(
-    title = "Price distribution for each Star groups",
+    title = "Price Distribution for Each Star Groups",
     x = "Stars", 
     y = "Price"
   )
 ```
 
-Looking at the distribution of price separately for each star rating groups, the violin graph shows that 1-star restaurants have a spread out distribution of price levels, while 2-star restaurants and 3-star restaurants have a higher distribution of price at 4 level and 5 level. This could potentially suggest that higher stared restaurants have higher price levels. 
+<br>Looking at the distribution of price separately for each star rating groups, the violin graph shows that 1-star restaurants have a spread out distribution of price levels, while 2-star restaurants and 3-star restaurants have a higher distribution of price at 4 level and 5 level. This could potentially suggest that higher stared restaurants have higher price levels. 
 
 &nbsp;
 
-## **Average price level for each star rating groups**
+## Average Price Level For Each Star Rating Groups
 
-We can further confirm our guess by plotting the average price level for each star groups: 
+<br>We can further confirm our guess by plotting the average price level for each star groups: 
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
 data2 = data %>%
@@ -101,16 +107,16 @@ data2 %>%
   geom_line() +
   geom_point() +
   labs(
-    title = "Average price for each Star groups", 
+    title = "Average Price for Each Star Groups", 
     x = "Stars", 
     y = "Average price"
   )
 ```
 
-The plot shows that there is a large jump on average price between 2-star restaurants and 1-star restaurants. The average price level keeps increasing from 2-star to 3-star restaurants with a smaller increment. Star level positively correlates with price level, which is consistent what we would normally expected that restaurants with higher star ratings have higher price level. 
+<br>The plot shows that there is a large jump on average price between 2-star restaurants and 1-star restaurants. The average price level keeps increasing from 2-star to 3-star restaurants with a smaller increment. Star level positively correlates with price level, which is consistent what we would normally expected that restaurants with higher star ratings have higher price level. 
 
 &nbsp;
 
-## **Limitations**
+## Discussion 
 
-Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 
+<br>Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 

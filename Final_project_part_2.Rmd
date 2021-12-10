@@ -1,11 +1,15 @@
 ---
 title: "**Cuisine Type and Restaurant Price**"
-author: "Ziyu Chen"
-date: "12/6/2021"
-output: html_document
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
 ---
 
-```{r message=FALSE, warning =FALSE}
+```{r message=FALSE, warning =FALSE, include=FALSE}
 
 library(tidyverse)
 library(readxl)
@@ -16,16 +20,13 @@ final = read_csv("./data/michelin_data.csv")
 
 ```
 
-Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded on, two three stars. But what about the prices? Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
+<br>Michelin starts are awarded to restaurants judged to be of a particularly high standard. Eateries that make the grade can be awarded on, two three stars. But what about the prices? Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
 
 &nbsp;
 
-### **Cusine Type Overview**
+## Cusine Type Overview
 
-
-&nbsp;
-
-Within our existing dataset, let's first take a look at the number of cuisine types in our Michelin restaurant:
+<br>Within our existing dataset, let's first take a look at the number of cuisine types in our Michelin restaurant:
 
 ```{r message=FALSE, warning =FALSE}
 cuisine_type = final %>% 
@@ -46,12 +47,10 @@ ggplotly(cuisine_plot)
 
 ```
 
-We can see that among all Michelin Restaurant, **Modern Cuisine, Contemporary, Japanese, Creative, Cantonese, Modern British and French** are at the top of the list. 
+<br>We can see that among all Michelin Restaurant, **Modern Cuisine, Contemporary, Japanese, Creative, Cantonese, Modern British and French** are at the top of the list. 
 
+<br>Now let's take a look at the how these restaurants distributed around the world. 
 
-Now let's take a look at the how these restaurants distributed around the world
-
-&nbsp;
 ```{r message=FALSE, warning =FALSE}
 country = final %>% 
    group_by(continent) %>% 
@@ -60,7 +59,6 @@ country = final %>%
 
 knitr::kable(country)
 ```
-
 
 
 ```{r message=FALSE, warning =FALSE, echo = FALSE}
@@ -88,12 +86,11 @@ final_clean = final %>%
   ) %>%
           drop_na(price, continent)  
 ```
-&nbsp;
 
-We have categorized our cuisine types into smaller group, like Modern French and French are both categorized into the French Cuisine Type so we do not have to many duplicate cuisine types in our analysis. 
+<br>We have categorized our cuisine types into smaller group, like Modern French and French are both categorized into the French Cuisine Type so we do not have to many duplicate cuisine types in our analysis. 
 
-Now let's take a look at the Number of Restaurants in each Cuisine Type by Michelin Star. 
-&nbsp;
+<br>Now let's take a look at the Number of Restaurants in each Cuisine Type by Michelin Star. 
+
 ```{r message=FALSE, warning =FALSE}
 cuisine_type = final_clean %>% 
    group_by(cuisine_cat,star) %>% 
@@ -112,13 +109,14 @@ cuisine_plot =
 cuisine_plot
 
 ```
-You can see some really interesting points here, Modern Cuisine Type not only have the largest number in restaurants, it also have the largest number of one star Restaurants in the world!
+
+<br>You can see some really interesting points here, Modern Cuisine Type not only have the largest number in restaurants, it also have the largest number of one star Restaurants in the world!
 
 &nbsp;
 
-# **Cuisine Type and its Price**
+## Cuisine Type and Price
 
-Now let's take a look at the cuisine type and their price around the world. 
+<br>Now let's take a look at the cuisine type and their price around the world. 
 
 ```{r message=FALSE, warning =FALSE}
 world_plot = final_clean %>%
@@ -135,9 +133,7 @@ world_plot = final_clean %>%
 ggplotly(world_plot)
 ```
 
-
-
-* We can clearly see that some types of cuisine are usually priced higher than the others. For instance, **Mediterranean cuisines (4.00) and Japanese cuisine (3.96)** are usually the most expensive, while **Australian (1.50) and Cantonese cuisines (2.03)** typically have lower prices.
+<br>We can clearly see that some types of cuisine are usually priced higher than the others. For instance, **Mediterranean cuisines (4.00) and Japanese cuisine (3.96)** are usually the most expensive, while **Australian (1.50) and Cantonese cuisines (2.03)** typically have lower prices.
 
 
 ```{r message=FALSE, warning =FALSE, echo = FALSE}
@@ -160,17 +156,17 @@ final_sa= final_clean %>%
   subset(continent == "South America")
 ```
 
-
 &nbsp;
 
-# **Cuisine type and its price by continent**
+## Cuisine Type and Price by Continent
 
 &nbsp; 
 
-## **Asia**
-&nbsp;
+### _Asia_
 
-* Let's first explore the relationship between cuisine type and its price in Asia
+Let's first explore the relationship between cuisine type and its price in Asia. 
+
+
 ```{r message=FALSE, warning =FALSE}
 asia_plot = final_asia %>%
     mutate(cuisine_cat = factor(cuisine_cat)) %>%
@@ -186,11 +182,12 @@ asia_plot = final_asia %>%
 ggplotly(asia_plot)
 
 ```
-* We can see that in Asia, the most expensive cuisine type is Japanese while cheapest cuisine type is Indian. 
+
+We can see that in Asia, the most expensive cuisine type is Japanese while cheapest cuisine type is Indian. 
 
 &nbsp;
 
-## **Europe** 
+### _Europe_ 
 
 ```{r message=FALSE, warning =FALSE}
 europe_plot = final_europe %>%
@@ -206,13 +203,12 @@ europe_plot = final_europe %>%
 
 ggplotly(europe_plot)
 ```
+
 In Europe, the most expensive cuisine type is **Mediterranean** which also aligns with our overall plot before stratifying with continents. The cheapest cuisine types in **Europe are Thai and Italian**, which is really unexpected. 
 
 &nbsp;
 
-
-## **North America** 
-
+### _North America_ 
 
 ```{r message=FALSE, warning = FALSE}
 na_plot = final_na %>%
@@ -228,12 +224,12 @@ na_plot = final_na %>%
 
 ggplotly(na_plot)
 ```
-* In North America, the most expensive cuisine types are **Scandiavian and other_european**, the cheapest type is **Chinese**. 
 
+In North America, the most expensive cuisine types are **Scandinavian and other_European**, the cheapest type is **Chinese**. 
 
 &nbsp;
 
-## **South America** 
+### _South America_ 
 
 ```{r message=FALSE, warning =FALSE}
 sa_plot = final_sa %>%
@@ -250,9 +246,5 @@ sa_plot = final_sa %>%
 ggplotly(sa_plot)
 ```
 
-
-* In South America, most of the cuisine types are expensive, while only **Japanese** has a relatively lower prices, which is 4.67. 
-
-
-
+In South America, most of the cuisine types are expensive, while only **Japanese** has a relatively lower prices, which is 4.67. 
 
