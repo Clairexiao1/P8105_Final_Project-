@@ -64,9 +64,11 @@ h1.title {
 
 1. How are Michelin Restaurants distributed around the world, by continent, by country? 
 2. How much does dining at Michelin Restaurants cost?
-3. Whether certain cuisine types usually have higher ranking in Michelin Star?
-4. Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
-5. What is the relationship between stars and prices? 
+3. What is the best restaurant in the world?
+4. Whether certain cuisine types usually have higher ranking in Michelin Star?
+5. Are certain cuisine associated with higher prices? In addition, do the prices varies by the continent?
+6. What is the relationship between stars and prices? 
+
 
 &nbsp;   
 
@@ -109,6 +111,32 @@ Variable | Description
 `description`  | restaurants description
 
 &nbsp;   
+
+__3. [Three-star Restaurants of Michelin Guide 2021](https://guide.michelin.com/en/restaurants/3-stars-michelin)__  
+
+<br>This dataset is incorporated from the Michelin official [website](https://guide.michelin.com/en/restaurants/3-stars-michelin) and relevant 
+page in [Wikipedia](https://en.wikipedia.org/wiki/List_of_Michelin_3-star_restaurants). There are 133 three-star restaurants awared in 2021 in this dataset. It contains information on country, location, restaurant name, chef(s), and the year since which awarded three-star. The main purpose of including this dataset is to find the best restaurant in 2021 in the world.
+    
+Variable | Description
+------------- | -------------
+`Country`  | countries restaurants locate in 
+`Location`  | specific location
+`Restaurants`  | names of the restaurants 
+`Chef(s)`  | 	chef(s) of the restaurants
+`Awarded since`  | the first year awarded three-star
+
+&nbsp;   
+
+__4. [The World's 50 Best Restaurants 2021](https://www.theworlds50best.com/list/1-50)__  
+
+<br>This dataset is directly extracted from the official website of [the World's 50 Best Restaurants](https://www.theworlds50best.com/list/1-50). It contains information on country and restaurant name. The main purpose of including this dataset is to find the best restaurant in 2021 in the world.
+    
+Variable | Description
+------------- | -------------
+`country`  | countries restaurants locate in 
+`restaurants`  | names of the restaurants 
+
+&nbsp;  
 
 ### _Data Cleaning_     
     
@@ -279,6 +307,12 @@ michelin_map %>%
 Analysis on cuisine types and stars was done to examine the distribution of cuisine types along with information on each type's star rating. Further analysis on cuisine types and price was performed to look at price level by cuisine types. Lastly, the relationship between stars and price levels was investigated through graphing.
 
 ## Discussion 
+
+Descriptive analysis:
+
+We explored the distribution of Michelin Restaurants around the world. The results of descriptive analysis show that by country, most of Michelin restaurants are in USA, United Kingdom, and China. By continent, the highest number of Michelin restaurants is in Europe, followed by North America. We also explored the price of Michelin restaurants. Majority of Michelin restaurants are very expensive. For eaters who want to enjoy a Michelin-level meal with affordable price, they should go to Hong Kong.
+
+Another important topic is finding the best restaurant in the world. 
 
 Cuisine type and Michelin stars:
 
