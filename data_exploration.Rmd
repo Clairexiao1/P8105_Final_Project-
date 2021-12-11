@@ -44,18 +44,7 @@ michelin_df =
 
 &nbsp;
 
-### **Michelin Restaurants by Country**
-
-```{r echo=FALSE}
-michelin_df %>%
-  count(country, sort = TRUE) %>%
-  drop_na() %>%
-  mutate(Country = country, Count = n) %>%
-  select(Country, Count) %>%
-  knitr::kable()
-```
-
-This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in **USA, United Kingdom, and China**.  
+### Michelin Restaurants by Country
 
 &nbsp;
 
@@ -77,23 +66,12 @@ michelin_df %>%
 )
 ```
 
-This graph clearly shows that more half of the Michelin restaurants are in **USA, United Kingdom, and China**.
+This table shows us the number of Michelin restaurants per country in 2019. We can see that most of Michelin restaurants are in **USA, United Kingdom, and China**. Actually, more than half of the Michelin restaurants are in USA, United Kingdom, and China.
 
 
 &nbsp;
 
-## **Michelin Restaurants by Continent**
-
-```{r echo=FALSE}
-michelin_df %>%
-  count(continent, sort = TRUE) %>%
-  drop_na() %>%
-  mutate(Continent = continent, Count = n) %>%
-  select(Continent, Count) %>%
-  knitr::kable()
-```
-
-This table shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in **Europe, followed by North America**. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
+### Michelin Restaurants by Continent
 
 &nbsp;
 
@@ -115,20 +93,13 @@ michelin_df %>%
 )
 ```
 
-This graph clearly shows that the distribution of Michelin restaurants is disproportionate among different continents. 
+This graph shows us the number of Michelin restaurants per continent in 2019. We can see that the highest number of Michelin restaurants is in **Europe, followed by North America**. Compared to the graph per country, we can know that although the number of Michelin restaurants is the highest in USA, when we sum up all Michelin restaurants in Europe, the number of Michelin restaurants is higher than North America.
 
 &nbsp;
 
 ## **How Much Does a Michelin Meal Cost?**
 
 ```{r echo=FALSE}
-michelin_df %>%
-  count(price) %>%
-  drop_na() %>%
-  mutate(Price = price, Count = n) %>%
-  select(Price, Count) %>%
-  knitr::kable()
-
 michelin_df %>%
   count(price) %>%
   drop_na() %>%
@@ -145,10 +116,6 @@ michelin_df %>%
 
 As expected, a Michelin meal costs a lot. Majority of Michelin restaurants are expensive. Only 15 restaurants ranks 1st and 64 restaurants ranks 2nd in terms of price
 rankings.
-
-&nbsp;
-
-![The French Laundry, three-star, 350 - 450 USD, USA](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/7e212f89-0f0d-4879-a515-0be47a4024b3.jpg?width=1000){Width=70%}
 
 &nbsp;
 
@@ -181,5 +148,87 @@ trip.
 
 &nbsp;
 
-![Tim Ho Wan (Sham Shui Po), one-star restaurant, 50 - 100 HKD, Hong Kong ](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/56a01fe4-4b58-4f06-b707-639d80a5f9d0.jpg?width=1000){width=70%}
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+three_df = 
+  read_csv("data/three_star_2021.csv") %>% 
+  janitor::clean_names() %>%
+  unique() 
+```
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+best50_df =
+  read_csv("data/best_50.csv") %>%
+  janitor::clean_names() %>%
+  unique() %>%
+  arrange(country)
+```
+
+&nbsp;
+
+## **Which one is the Best?**
+
+Our next goal is to find the best restaurant (in 2021) in the world. Since the Michelin Guide itself does not rank restaurants, how can we find the best
+restaurant in the world?
+
+&nbsp;
+
+### Step 1: Overlap between rankings
+
+Another famous restaurant ranking is The World's 50 Best Restaurants. We want to see which restaurant can be awarded three-star and Best 50 simultaneously. The assumption for this approach is that when a restaurant is acknowledged by multiple rankings, it is more likely that the restaurant provides almost the best food.
+
+```{r warning=FALSE,echo=FALSE}
+double_best = 
+  inner_join(three_df, best50_df, by = "restaurants") %>%
+  mutate(country = country.x) %>%
+  select(-country.x, -country.y)
+
+double_best %>%
+  knitr::kable()
+```
+
+Only **15** restaurants can be three-star and Best 50 at the same time in the world!
+However, our goal is to find the best although they are all excellent restaurants.
+
+&nbsp;
+
+### Step 2: Award history
+
+Another thing that is critical for a restaurant in the stability. The quality of food is determined by multiple factors - supply chain, staff, and the most important, chef. Sometimes, the ranking of a restaurant is largely dependent on the chef. The fame is for the chef, but not for the restaurant itself. Here, we want to find a restaurant that provide high-quality food in a stable way.
+
+```{r warning=FALSE, echo=FALSE}
+double_best %>%
+  arrange(awarded_since) %>%
+  select(country, restaurants, awarded_since) %>%
+  knitr::kable()
+```
+
+From the above table, we can see only one restaurant is awarded three-star since the last century, and it is also within Best 50 this year.
+
+&nbsp;
+
+### Our Recommendations
+
+&nbsp;
+
+#### Best in the world
+
+Based on our analysis above, we know that the best restaurant in the world is
+**Arpège**!
+
+You can find their website here: [Arpège](https://www.alain-passard.com/).
+
+![](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/ac44f41d-a032-491a-8d5e-e6fc1d6d1634.jpg?width=1000){width=50%}![](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/974deb72-9570-4364-a390-abaa634b6036.jpg?width=1000){width=50%}
+
+&nbsp;
+
+#### Best in NYC
+
+It is hard for us to go to France to enjoy the best food in the world due to Covid-19. Fortunately, there is an absolutely excellent restaurant here in NYC.
+
+**Le Bernardin**, three-star and Best 50, is awarded 3-star since 2006. Most importantly,
+it is in 155 W 51st, very close to Columbia!
+
+You can find their website here: [Le Bernardin](https://www.le-bernardin.com/home).
+
+![](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/b0adcfa7-10a1-4af8-8229-568adecd0ba0.jpg?width=1000){width=50%}![](https://axwwgrkdco.cloudimg.io/v7/mtp-cf-images.s3-eu-west-1.amazonaws.com/images/max/c037e587-1678-4683-a8f3-d3348643ef89.jpg?width=1000){width=50%}
 
