@@ -40,7 +40,7 @@ michelin_df =
 ```
 &nbsp;
 
-## **Where Can I Find a Michelin Restaurant?**
+## Where Can I Find a Michelin Restaurant?
 
 &nbsp;
 
@@ -48,7 +48,7 @@ michelin_df =
 
 &nbsp;
 
-```{r echo=FALSE}
+```{r}
 michelin_df %>%
   count(country, sort = TRUE) %>%
   drop_na() %>%
@@ -75,7 +75,7 @@ This table shows us the number of Michelin restaurants per country in 2019. We c
 
 &nbsp;
 
-```{r echo=FALSE}
+```{r}
 michelin_df %>%
   count(continent, sort = TRUE) %>%
   drop_na() %>%
@@ -97,9 +97,9 @@ This graph shows us the number of Michelin restaurants per continent in 2019. We
 
 &nbsp;
 
-## **How Much Does a Michelin Meal Cost?**
+## How Much Does a Michelin Meal Cost?
 
-```{r echo=FALSE}
+```{r}
 michelin_df %>%
   count(price) %>%
   drop_na() %>%
@@ -131,21 +131,6 @@ michelin_df %>%
 ```
 Here is the list! You should definitely go to Hong kong, China - there are 9 Michelin restaurants with affordable price in Hong Kong!
 
-If our budget is a little bit higher, where should we go?
-```{r echo=FALSE}
-michelin_df %>%
-  filter(price < 3) %>%
-  select(-latitude,-longitude) %>%
-  count(city, sort = TRUE) %>%
-  mutate(City = city, Count = n) %>%
-  select(City, Count) %>%
-  knitr::kable()
-```
-You should also go to **Hong Kong**! We also notice that there are **11 restaurants with 
-affordable price in Macau**. Since Hong Kong and Macau are very close to each other, 
-you can definitely plan to enjoy delicious food from these two cities during the same
-trip.
-
 &nbsp;
 
 ```{r message=FALSE, echo=FALSE, warning=FALSE}
@@ -165,7 +150,7 @@ best50_df =
 
 &nbsp;
 
-## **Which one is the Best?**
+## Which one is the Best?
 
 Our next goal is to find the best restaurant (in 2021) in the world. Since the Michelin Guide itself does not rank restaurants, how can we find the best
 restaurant in the world?
@@ -176,7 +161,7 @@ restaurant in the world?
 
 Another famous restaurant ranking is The World's 50 Best Restaurants. We want to see which restaurant can be awarded three-star and Best 50 simultaneously. The assumption for this approach is that when a restaurant is acknowledged by multiple rankings, it is more likely that the restaurant provides almost the best food.
 
-```{r warning=FALSE,echo=FALSE}
+```{r warning=FALSE}
 double_best = 
   inner_join(three_df, best50_df, by = "restaurants") %>%
   mutate(country = country.x) %>%
@@ -195,7 +180,7 @@ However, our goal is to find the best although they are all excellent restaurant
 
 Another thing that is critical for a restaurant in the stability. The quality of food is determined by multiple factors - supply chain, staff, and the most important, chef. Sometimes, the ranking of a restaurant is largely dependent on the chef. The fame is for the chef, but not for the restaurant itself. Here, we want to find a restaurant that provide high-quality food in a stable way.
 
-```{r warning=FALSE, echo=FALSE}
+```{r warning=FALSE}
 double_best %>%
   arrange(awarded_since) %>%
   select(country, restaurants, awarded_since) %>%
