@@ -285,7 +285,15 @@ michelin_map <-
 
 &nbsp;   
      
-## Exploratory Analysis   
+## Analysis   
+
+&nbsp; 
+
+### _The relationship between cuisine types, stars, and price_    
+
+Analysis on cuisine types and stars was done to examine the distribution of cuisine types along with information on each type's star rating. Further analysis on cuisine types and price was performed to look at price level by cuisine types. Lastly, the relationship between stars and price levels was investigated through graphing.
+
+&nbsp; 
 
 ### _Newly released Michelin restaurants global distribution (2018-2020)_
 
@@ -316,41 +324,36 @@ michelin_map %>%
 
 &nbsp; 
 
-## Additional Analysis    
-
-Analysis on cuisine types and stars was done to examine the distribution of cuisine types along with information on each type's star rating. Further analysis on cuisine types and price was performed to look at price level by cuisine types. Lastly, the relationship between stars and price levels was investigated through graphing.
-
-&nbsp; 
-
 ## Discussion 
 
-### _Descriptive Analysis:_
+### _Data Exploration_
 
 We explored the distribution of Michelin Restaurants around the world. The results of descriptive analysis show that by country, most of Michelin restaurants are in **USA, United Kingdom, and China**. By continent, the highest number of Michelin restaurants is in Europe, followed by North America. We also explored the price of Michelin restaurants. Majority of Michelin restaurants are very expensive. **For eaters who want to enjoy a Michelin-level meal with affordable price, they should go to Hong Kong**.
 
-Another important topic is finding the best restaurant in the world. 
+Another important topic is finding the best restaurant this year in the world. We defined the best restaurant as the following: 1) awarded Michelin three-star for a long time, 2) awarded the World's Best 50 Restaurants in 2021. Based on our analysis,
+we think that the best restaurant in the world is **Arpège**.
 
 &nbsp; 
 
-### _Cuisine Type and Michelin Stars:_
+### _Cuisine Type and Michelin Stars_
 
 By recategorizing cuisine types and plotting different plots, we are able to see the distribution of all cuisine types and their star rankings worldwide, as well as for different continent. Such comparison is very interesting that it gives us a great overview of which cuisine type is rated with the highest star ranking in each continent. **From the results, we see French cuisine is relatively the highest starred cuisine type**. One thing to note is that the original cuisine type classification in the dataset was very detailed and the categories tend to be repetitive. This could be less helpful when doing statistical analysis and requires further cleaning in a way that is more appropriate for a specific analysis. 
 
 &nbsp; 
 
-### _Cuisine Type and Price:_
+### _Cuisine Type and Price_
 
 In this section, we would like to explore more on whether certain cuisine types have higher prices and whether the relationship is stratified by their continent. First, we discovered that Modern Cuisine, Contemporary, Japanese, Creative, Cantonese, Modern British and French have the largest number of restaurants around the world and Europe has the largest number of Michelin Restaurants. From the results, we see Mediterranean cuisines and Japanese cuisines are usually pricier while cuisine type like Chinese and Thai are usually cheaper. **This could gave us insights on one main point: that cultures that tend to share their meals are likely to have lower prices in Michelin Restaurants. Therefore, the culture of eating might significantly influence the average prices for dining at a Michelin Restaurants**. 
 
 &nbsp; 
 
-### _Michelin Stars and Price:_
+### _Michelin Stars and Price_
 
 For the relationship between stars and price levels, it is reasonable to predict **that restaurants with higher stars may have higher prices. Results from the graphs are consistent with what we hypothesized**. However, formal statistical analysis and model building could help with providing detailed information on this correlation. Here in our analysis, price is being treated as a continuous variable, but truly it represents the level of a restaurant's price. In a formal linear model and statistical analysis, it should be more appropriate and the results would be better if price, the dependent variable, is continuous. More information is needed and therefore this is also one of our dataset's limitation. 
 
 &nbsp; 
 
-### _Limitations:_ 
+### _Limitations_ 
 <br>One limitation for interactive maps part is that the datasets we had for Michelin restaurants contained limited information, which prevented us from being able to include all Michelin restaurants released by Michelin Guide around the world into a more complete geographic distribution map. [Michelin Restaurant Ratings Globally](https://www.kaggle.com/jackywang529/michelin-restaurants) only contains restaurants info in following regions: Austria, California, Chicago, Croatia, Czech Republic, Denmark, Finland, Greece, Hong Kong, Hungary, Iceland, Macau, Norway, New York City, Poland, Ireland, Rio de Janeiro, Sao Paulo, South Korea, Singapore, Sweden, Taipei, Thailand, Washington DC, and United Kingdom. [Starred Restaurants of Michelin Guide 2020](https://data.public.lu/en/datasets/michelin-restaurants-in-2020/) contains restaurants info in some European countries, such as Germany, but the listing is still not complete. Therefore, after combining both two datasets, we still missed starred restaurants in Michelin popular countries, like Belgium, France, Italy and Japan. Although we tidied 2021 Michelin restaurants datasets by ourselves from Michelin Guide and Wikipedia, we still did not have the location information(i.e. longitude and latitude) of those Michelin restaurants. 
 
 Since price information in the dataset is categorical data that 5 different price levels were provided as number of $ signs, we would loose a lot of information by treating is as a continuous variable and thus poses limitations to our analysis. 
