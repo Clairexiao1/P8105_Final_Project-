@@ -87,29 +87,6 @@ final_clean = final %>%
           drop_na(price, continent)  
 ```
 
-<br>We have categorized our cuisine types into smaller group, like Modern French and French are both categorized into the French Cuisine Type so we do not have to many duplicate cuisine types in our analysis. 
-
-<br>Now let's take a look at the Number of Restaurants in each Cuisine Type by Michelin Star. You can see some really interesting points here, Modern Cuisine Type not only have the largest number in restaurants, it also have the largest number of one star Restaurants in the world!
-
-```{r message=FALSE, warning =FALSE}
-cuisine_type = final_clean %>% 
-   group_by(cuisine_cat,star) %>% 
-   summarise(count = n())  %>% 
-    mutate(cuisine_cat = fct_reorder(cuisine_cat, count)) 
-
-cuisine_plot = 
-  cuisine_type %>%
-  ggplot(aes(x = cuisine_cat, y = count, fill=star)) +
-  geom_bar(stat = 'identity',position = 'dodge') + 
-  theme(axis.text.x = element_text(angle = 70, vjust = 0.6, hjust = 0.5)) + 
-  ggtitle("Number of Restaurants in each Cuisine Type by Michelin Star") +
-  xlab("Cuisine Type") +
-  ylab("Number of Restaurant")
-
-cuisine_plot
-
-```
-
 
 
 &nbsp;
@@ -164,7 +141,7 @@ final_sa= final_clean %>%
 
 ### _Asia_
 
-Let's first explore the relationship between cuisine type and its price in Asia. We can see that in Asia, the most expensive cuisine type is Japanese while cheapest cuisine type is Indian. 
+Let's first explore the relationship between cuisine type and its price in Asia. We can see that in Asia, the most expensive cuisine type is **Japanese** while cheapest cuisine type is Indian. 
 
 
 ```{r message=FALSE, warning =FALSE}
